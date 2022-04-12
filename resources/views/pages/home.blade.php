@@ -70,7 +70,7 @@
                     <p>Mtandard dummy texr since when an unknown printer took a galley.MediPoint Lorem ipsum
                         dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam.'s standard dummy texr
                         since when an unknown printer took a galley consetetur.</p>
-                    <img src="{{ asset('assets/img/about/sign1.png') }}" alt="sign" class="img-fluid">
+                    <img src="{{ asset('assets/img/slider/sign1.png') }}" alt="sign" class="img-fluid">
                 </div>
             </div>
             <div class="about-box-layout2 order-xl-3 col-xl-4 col-lg-7 col-12">
