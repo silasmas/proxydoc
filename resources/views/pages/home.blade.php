@@ -62,7 +62,7 @@
         <div class="row">
             <div class="about-box-layout1 order-xl-2 col-xl-5 col-12">
                 <div class="item-content">
-                    <h2 class="item-title">Welcome To MediLink. Central Hospital</h2>
+                    <h2 class="item-title">Bienvenue chez {{ config('app.name') }} . Central Hospital</h2>
                     <div class="sub-title">Hospital imply dummy text of the printing and type setng industry
                         been
                         the industry.
