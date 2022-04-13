@@ -619,14 +619,14 @@
         // Masonry
         var galleryIsoContainer = $('#no-equal-gallery');
         if (galleryIsoContainer.length) {
-            var blogGallerIso = galleryIsoContainer.imagesLoaded(function() {
-                blogGallerIso.isotope({
-                    itemSelector: '.no-equal-item',
-                    masonry: {
-                        columnWidth: '.no-equal-item'
-                    }
-                });
-            });
+            // var blogGallerIso = galleryIsoContainer.imagesLoaded(function() {
+            //     blogGallerIso.isotope({
+            //         itemSelector: '.no-equal-item',
+            //         masonry: {
+            //             columnWidth: '.no-equal-item'
+            //         }
+            //     });
+            // });
         }
 
         // Page Preloader

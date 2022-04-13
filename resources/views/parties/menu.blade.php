@@ -48,35 +48,35 @@
     <div class="header-menu-area header-menu-layout1">
         <div class="container">
             <div class="row no-gutters d-flex align-items-center">
-                <div class="col-lg-2 col-md-2 logo-area-layout1">
+                <div class="col-lg-1 col-md-1 logo-area-layout1">
                     <a href="index.html" class="temp-logo">
                         <img src="{{ asset('assets/img/logo.png') }}" alt="logo" class="img-fluid">
                     </a>
                 </div>
-                <div class="col-lg-7 col-md-7 possition-static">
+                <div class="col-lg-6 col-md-6 possition-static">
                     <div class="template-main-menu">
                         <nav id="dropdown">
                             <ul>
                                 <li class="active">
-                                    <a href="#">Accueil</a>                                    
+                                    <a href="{{ route('home') }}">Accueil</a>                                    
                                 </li>
                                 <li>
-                                    <a href="#">Apropo</a>                                    
+                                    <a href="{{ route('about') }}">Apropo</a>                                    
                                 </li>                                        
                                 <li>
-                                    <a href="#">Nos services</a>                                   
+                                    <a href="{{ route('services') }}">Nos services</a>                                   
                                 </li>
                                 <li>
-                                    <a href="#">Nos docteurs</a>
+                                    <a href="{{ route('docteur') }}">Nos docteurs</a>
                                 </li>
                                 <li>
-                                    <a href="">Contact</a>
+                                    <a href="{{ route('contact') }}">Contact</a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-5 col-md-5">
                     <div class="header-action-items-layout1">
                         <ul>
                             <li class="d-none d-xl-block">
@@ -88,7 +88,10 @@
                                 </form>
                             </li>
                             <li>
-                                <a href="" class="action-items-primary-btn">Prendre un RDV<i class="fas fa-chevron-right"></i></a>
+                                <a href="" class="action-items-primary-btn">Connéxion<i class="fas fa-chevron-right"></i></a>
+                            </li>
+                            <li>
+                                <a href="" class="action-items-primary-btn">Créer un compte<i class="fas fa-chevron-right"></i></a>
                             </li>
                         </ul>
                     </div>
