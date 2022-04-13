@@ -50,7 +50,7 @@
             <div class="row no-gutters d-flex align-items-center">
                 <div class="col-lg-1 col-md-1 logo-area-layout1">
                     <a href="index.html" class="temp-logo">
-                        <img src="{{ asset('assets/img/logo.png') }}" alt="logo" class="img-fluid">
+                        <img src="{{ asset('assets/logo/logo1.png') }}" alt="logo" height="70" width="70" class="img-fluid">
                     </a>
                 </div>
                 <div class="col-lg-6 col-md-6 possition-static">
@@ -88,10 +88,10 @@
                                 </form>
                             </li>
                             <li>
-                                <a href="" class="action-items-primary-btn">Connéxion<i class="fas fa-chevron-right"></i></a>
+                                <a href="{{ route('login') }}" class="action-items-primary-btn">Connéxion<i class="fas fa-chevron-right"></i></a>
                             </li>
                             <li>
-                                <a href="" class="action-items-primary-btn">Créer un compte<i class="fas fa-chevron-right"></i></a>
+                                <a href="{{ route('register') }}" class="action-items-primary-btn">Créer un compte<i class="fas fa-chevron-right"></i></a>
                             </li>
                         </ul>
                     </div>

@@ -75,10 +75,10 @@
             </div>
             <div class="about-box-layout2 order-xl-3 col-xl-4 col-lg-7 col-12">
                 <ul>
-                    <li><a href="appointment.html"><i class="far fa-calendar-alt"></i>Request Appoinment</a></li>
-                    <li><a href="doctors1.html"><i class="far fa-user"></i>Find Doctors</a></li>
-                    <li><a href="appointment.html"><i class="fas fa-map-marker-alt"></i>Find Locations</a></li>
-                    <li><a href="appointment.html"><i class="fas fa-phone"></i>Emergency Contact</a></li>
+                    <li><a href="appointment.html"><i class="far fa-calendar-alt"></i>Prendre un rendez-vous</a></li>
+                    <li><a href="doctors1.html"><i class="far fa-user"></i>Parlez au docteur</a></li>
+                    <li><a href="appointment.html"><i class="fas fa-map-marker-alt"></i>Nous contacter</a></li>
+                    <li><a href="appointment.html"><i class="fas fa-phone"></i>Service d'urgence</a></li>
                 </ul>
             </div>
             <div class="about-box-layout2 order-xl-1 col-xl-3 col-lg-5 col-12">
@@ -120,30 +120,37 @@
 
 
                 <div class="item-icon"><i class="flaticon-medical"></i></div>
-                <h3 class="item-title"><a href="#">Dental Care</a></h3>
-                <p>Aorem Ipsumea dummy texte printing setting detry bringin eight challenges faced.</p>
-                <a class="item-btn" href="#">READ MORE<i class="fas fa-long-arrow-alt-right"></i></a>
+                <h3 class="item-title"><a href="#">ProxyChat </a></h3>
+                <p>
+                    en cliquant sur ce service ou option, le client trouvera
+                     la liste des médecins. 
+                </p>
+                <a class="item-btn" href="#">Vor plus<i class="fas fa-long-arrow-alt-right"></i></a>
             </div>
             <div class="departments-box-layout2">
                 <span class="departments-sl">02.</span>
                 <div class="item-icon"><i class="flaticon-pills"></i></div>
-                <h3 class="item-title"><a href="#">Medicine</a></h3>
-                <p>Aorem Ipsumea dummy texte printing setting detry bringin eight challenges faced.</p>
-                <a class="item-btn" href="#">READ MORE<i class="fas fa-long-arrow-alt-right"></i></a>
+                <h3 class="item-title"><a href="#">ProxyChem</a></h3>
+                <p>
+                    Ce service vous permet de trouver des médicaments et être servi à domicile... 
+                </p>
+                <a class="item-btn" href="#">Vor plus<i class="fas fa-long-arrow-alt-right"></i></a>
             </div>
             <div class="departments-box-layout2">
                 <span class="departments-sl">03.</span>
                 <div class="item-icon"><i class="flaticon-medical-5"></i></div>
-                <h3 class="item-title"><a href="#">Cardeology</a></h3>
-                <p>Aorem Ipsumea dummy texte printing setting detry bringin eight challenges faced.</p>
-                <a class="item-btn" href="#">READ MORE<i class="fas fa-long-arrow-alt-right"></i></a>
+                <h3 class="item-title"><a href="#">ProxyFamily</a></h3>
+                <p>
+                  La famille est precieuse, ProxyDoc vous dispose par ce service des medecins de famille à domicile... 
+                </p>
+                <a class="item-btn" href="#">Vor plus<i class="fas fa-long-arrow-alt-right"></i></a>
             </div>
             <div class="departments-box-layout2">
                 <span class="departments-sl">04.</span>
                 <div class="item-icon"><i class="flaticon-human-hip"></i></div>
-                <h3 class="item-title"><a href="#">Orthopedic</a></h3>
-                <p>Aorem Ipsumea dummy texte printing setting detry bringin eight challenges faced.</p>
-                <a class="item-btn" href="#">READ MORE<i class="fas fa-long-arrow-alt-right"></i></a>
+                <h3 class="item-title"><a href="#">ProxyGency</a></h3>
+                <p>Ce service vous permet d'avoir notre service d'urgence 24h/7</p>
+                <a class="item-btn" href="#">Bientôt disponible<i class="fas fa-long-arrow-alt-right"></i></a>
             </div>
         </div>
     </div>
@@ -175,7 +182,7 @@
             </div>
         </div>
         <div class="item-inner-wrapper">
-            <img src="{{ asset('assets/img/slider/figure8.jpg') }}" class="img-responsive" alt="figure">
+            <img src="{{ asset('assets/img/slider/figure8.jpg') }}" style="height: 600px;" class="img-responsive" alt="figure">
         </div>
     </div>
     <div class="features-box-layout1 d-lg-flex flex-lg-row-reverse">
@@ -220,7 +227,7 @@
             </div>
         </div>
         <div class="item-inner-wrapper">
-            <img src="{{ asset('assets/img/slider/figure9.jpg') }}" class="img-responsive" alt="figure">
+            <img src="{{ asset('assets/img/slider/team.jpg') }}" class="img-responsive" alt="figure">
         </div>
     </div>
 </section>
@@ -277,7 +284,7 @@
             data-r-extra-large-dots="false">
             <div class="team-box-layout2">
                 <div class="item-img">
-                    <img src="{{ asset('assets/img/team/team33.png') }}" alt="Team1" class="img-fluid rounded-circle">
+                    <img src="{{ asset('assets/img/slider/dr1.jpg') }}" alt="Team1" class="img-fluid rounded-circle">
                     <ul class="item-icon">
                         <li>
                             <a href="single-doctor.html">
@@ -309,7 +316,7 @@
             </div>
             <div class="team-box-layout2">
                 <div class="item-img">
-                    <img src="{{ asset('assets/img/team/team34.png') }}" alt="Team1" class="img-fluid rounded-circle">
+                    <img src="{{ asset('assets/img/slider/dr2.png') }}" alt="Team1" class="img-fluid rounded-circle">
                     <ul class="item-icon">
                         <li>
                             <a href="single-doctor.html">
@@ -341,7 +348,7 @@
             </div>
             <div class="team-box-layout2">
                 <div class="item-img">
-                    <img src="{{ asset('assets/img/team/team35.png') }}" alt="Team1" class="img-fluid rounded-circle">
+                    <img src="{{ asset('assets/img/slider/dr3.png') }}" alt="Team1" class="img-fluid rounded-circle">
                     <ul class="item-icon">
                         <li>
                             <a href="single-doctor.html">
@@ -373,7 +380,7 @@
             </div>
             <div class="team-box-layout2">
                 <div class="item-img">
-                    <img src="{{ asset('assets/img/team/team36.png') }}" alt="Team1" class="img-fluid rounded-circle">
+                    <img src="{{ asset('assets/img/slider/team36.png') }}" alt="Team1" class="img-fluid rounded-circle">
                     <ul class="item-icon">
                         <li>
                             <a href="single-doctor.html">
@@ -971,144 +978,102 @@
     </div>
 </section>
 <!-- Banner End Here -->
-<!-- Blog and Testimonial Area Start Here -->
-<section class="both-side-half-bg">
-    <div class="single-item">
-        <div class="section-heading heading-dark heading-layout5">
-            <h2>Our Latest News</h2>
-        </div>
-        <div class="blog-box-layout1">
-            <h3 class="item-title"><a href="single-news.html">My dental office need a blog area galley
-                    printingdern care to ailing dear.</a></h3>
-            <ul class="entry-meta">
-                <li><i class="far fa-calendar-alt"></i>21 July, 20 18</li>
-                <li><i class="fas fa-user"></i>Posted by <a href="#">admin</a></li>
-            </ul>
-        </div>
-        <div class="blog-box-layout1">
-            <h3 class="item-title"><a href="single-news.html">My dental office need a blog area galley
-                    printingdern care to ailing dear.</a></h3>
-            <ul class="entry-meta">
-                <li><i class="far fa-calendar-alt"></i>21 July, 20 18</li>
-                <li><i class="fas fa-user"></i>Posted by <a href="#">admin</a></li>
-            </ul>
-        </div>
-        <a class="blog-btn" href="news1.html">SEE ALL NEWS<i class="fas fa-chevron-right"></i></a>
-    </div>
-    <div class="single-item bg-common" data-bg-image="{{ asset('assets/img/slider/figure9.png') }}">
-        <div class="section-heading heading-light heading-layout5">
-            <h2>Testimonials</h2>
-            <div id="owl-nav3" class="owl-nav-layout2">
-                <span class="rt-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </span>
-                <span class="rt-next">
-                    <i class="fas fa-chevron-right"></i>
-                </span>
-            </div>
-        </div>
-        <div class="rc-carousel nav-control-layout7" data-loop="true" data-items="4" data-margin="30"
-            data-autoplay="false" data-autoplay-timeout="5000" data-custom-nav="#owl-nav3" data-smart-speed="2000"
-            data-dots="false" data-nav="false" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="true"
-            data-r-x-small-dots="false" data-r-x-medium="1" data-r-x-medium-nav="false" data-r-x-medium-dots="false"
-            data-r-small="1" data-r-small-nav="false" data-r-small-dots="false" data-r-medium="1"
-            data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="1" data-r-large-nav="false"
-            data-r-large-dots="false" data-r-extra-large="1" data-r-extra-large-nav="false"
-            data-r-extra-large-dots="false">
-            <div class="item">
-                <div class="testmonial-box-layout2">
-                    <h4 class="item-title">Josef Ardogan <span>/ CEO Artland</span></h4>
-                    <ul class="rating">
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                    </ul>
-                    <p>"Eodem modo typi, qui nunc nobis videntur parum clar fiant sollemnes in futurum. Lorem
-                        ipsum dolor sit amet tetuer adipiscing elit, sed diam nonu."</p>
+        <!-- Special Offer Start Here -->
+        <section class="pricing-wrap-layout1 bg-light-accent100">
+            <div class="container">
+                <div class="text-center section-heading heading-dark heading-layout3">
+                    <h2>Notre Plan Tarifaire</h2>
+                    <p>Choisissez votre prix et forfait abordables</p>
                 </div>
-                <div class="testmonial-box-layout2">
-                    <h4 class="item-title">Josef Ardogan <span>/ CEO Artland</span></h4>
-                    <ul class="rating">
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                    </ul>
-                    <p>"Eodem modo typi, qui nunc nobis videntur parum clar fiant sollemnes in futurum."</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="testmonial-box-layout2">
-                    <h4 class="item-title">Josef Ardogan <span>/ CEO Artland</span></h4>
-                    <ul class="rating">
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                    </ul>
-                    <p>"Eodem modo typi, qui nunc nobis videntur parum clar fiant sollemnes in futurum. Lorem
-                        ipsum dolor sit amet tetuer adipiscing elit, sed diam nonu."</p>
-                </div>
-                <div class="testmonial-box-layout2">
-                    <h4 class="item-title">Josef Ardogan <span>/ CEO Artland</span></h4>
-                    <ul class="rating">
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        </li>
-                    </ul>
-                    <p>"Eodem modo typi, qui nunc nobis videntur parum clar fiant sollemnes in futurum."</p>
+                <div class="row gutters-20">
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                        <div class="pricing-box-layout1">
+                            <h3>Regular</h3>
+                            <div class="pricing title-bar-primary6">
+                                <span class="currency">$</span>
+                                <span class="amount">29</span>
+                                <small>/Mois</small>
+                            </div>
+                            <div class="box-content">
+                                <ul>
+                                    <li>Dental Implant</li>
+                                    <li>Another Feature</li>
+                                    <li>Another Major Feature</li>
+                                    <li>-</li>
+                                    <li>-</li>
+                                    <li>-</li>
+                                </ul>
+                                <a href="#" class="item-btn">S'abonner</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                        <div class="pricing-box-layout1">
+                            <h3>Standard</h3>
+                            <div class="pricing title-bar-primary6">
+                                <span class="currency">$</span>
+                                <span class="amount">39</span>
+                                <small>/Mois</small>
+                            </div>
+                            <div class="box-content">
+                                <ul>
+                                    <li>Dental Implant</li>
+                                    <li>Another Feature</li>
+                                    <li>Another Major Feature</li>
+                                    <li>Emergency Care</li>
+                                    <li>-</li>
+                                    <li>-</li>
+                                </ul>
+                                <a href="#" class="item-btn">S'abonner</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                        <div class="pricing-box-layout1">
+                            <h3>Business</h3>
+                            <div class="pricing title-bar-primary6">
+                                <span class="currency">$</span>
+                                <span class="amount">59</span>
+                                <small>/Mois</small>
+                            </div>
+                            <div class="box-content">
+                                <ul>
+                                    <li>Dental Implant</li>
+                                    <li>Another Feature</li>
+                                    <li>Another Major Feature</li>
+                                    <li>Dental Implant</li>
+                                    <li>Another Feature</li>
+                                    <li>-</li>
+                                </ul>
+                                <a href="#" class="item-btn">S'abonner</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                        <div class="pricing-box-layout1">
+                            <h3>Premium</h3>
+                            <div class="pricing title-bar-primary6">
+                                <span class="currency">$</span>
+                                <span class="amount">99</span>
+                                <small>/Mois</small>
+                            </div>
+                            <div class="box-content">
+                                <ul>
+                                    <li>Dental Implant</li>
+                                    <li>Another Feature</li>
+                                    <li>Another Major Feature</li>
+                                    <li>Dental Implant</li>
+                                    <li>Another Feature</li>
+                                    <li>Another Major Feature</li>
+                                </ul>
+                                <a href="#" class="item-btn">S'abonner</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-<!-- Blog and Testimonial Area End Here -->
+        </section>
+        <!-- Special Offer End Here -->
 <!-- Call to Action Area Start Here -->
 <section class="call-to-action-wrap-layout4">
     <div class="item-img">
@@ -1118,13 +1083,14 @@
         <div class="row">
             <div class="col-xl-12 col-lg-8 col-md-8 col-12">
                 <div class="call-to-action-box-layout4">
-                    <h2 class="item-title">We Provide the highest level of satisfaction care &amp; services to
-                        our patients.</h2>
+                    <h2 class="item-title">
+                        Nous fournissons le plus haut niveau de soins et de services de satisfaction à nos patients.
+                    </h2>
                     <div class="call-to-action-phone">
-                        <a href="tel:+12344092888"><i class="fas fa-phone"></i>+123 44092 888</a>
+                        <a href="tel:+12344092888"><i class="fas fa-phone"></i>+243 827839232</a>
                     </div>
                     <div class="call-to-action-btn">
-                        <a href="#" class="item-btn">Make an Appointment</a>
+                        <a href="#" class="item-btn">Prendre un rendez-vous</a>
                     </div>
                 </div>
             </div>
