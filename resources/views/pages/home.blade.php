@@ -95,8 +95,8 @@
     <img class="left-img img-fluid" src="{{ asset('assets/img/slider/figure8.png') }}" alt="figure">
     <div class="container">
         <div class="text-left section-heading heading-dark heading-layout1">
-            <h2>Our Departments</h2>
-            <p>Dedicated Services</p>
+            <h2>Nos services</h2>
+            <p>Services dédiés</p>
             <div id="owl-nav1" class="owl-nav-layout1">
                 <span class="rt-prev">
                     <i class="fas fa-chevron-left"></i>
@@ -119,7 +119,12 @@
 
 
 
-                <div class="item-icon"><i class="flaticon-medical"></i></div>
+                <div class="item-icon">
+                    <i>
+                        <img src="{{ asset('assets/img/png/017-comment.png') }}" style="margin-bottom: -10px">
+                    </i>
+                </div>
+                {{-- <div class="item-icon"><i class="flaticon-medical"></i></div> --}}
                 <h3 class="item-title"><a href="#">ProxyChat </a></h3>
                 <p>
                     en cliquant sur ce service ou option, le client trouvera
@@ -138,7 +143,12 @@
             </div>
             <div class="departments-box-layout2">
                 <span class="departments-sl">03.</span>
-                <div class="item-icon"><i class="flaticon-medical-5"></i></div>
+                <div class="item-icon">
+                    <i>
+                        <img src="{{ asset('assets/img/png/018-family-insurance-2.png') }}" style="margin-bottom: -10px">
+                    </i>
+                </div>
+                {{-- <div class="item-icon"><i class="flaticon-medical-5"></i></div> --}}
                 <h3 class="item-title"><a href="#">ProxyFamily</a></h3>
                 <p>
                   La famille est precieuse, ProxyDoc vous dispose par ce service des medecins de famille à domicile... 
@@ -147,7 +157,7 @@
             </div>
             <div class="departments-box-layout2">
                 <span class="departments-sl">04.</span>
-                <div class="item-icon"><i class="flaticon-human-hip"></i></div>
+                <div class="item-icon"><i class="flaticon-ambulance"></i></div>
                 <h3 class="item-title"><a href="#">ProxyGency</a></h3>
                 <p>Ce service vous permet d'avoir notre service d'urgence 24h/7</p>
                 <a class="item-btn" href="#">Bientôt disponible<i class="fas fa-long-arrow-alt-right"></i></a>
@@ -978,102 +988,7 @@
     </div>
 </section>
 <!-- Banner End Here -->
-        <!-- Special Offer Start Here -->
-        <section class="pricing-wrap-layout1 bg-light-accent100">
-            <div class="container">
-                <div class="text-center section-heading heading-dark heading-layout3">
-                    <h2>Notre Plan Tarifaire</h2>
-                    <p>Choisissez votre prix et forfait abordables</p>
-                </div>
-                <div class="row gutters-20">
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-12">
-                        <div class="pricing-box-layout1">
-                            <h3>Regular</h3>
-                            <div class="pricing title-bar-primary6">
-                                <span class="currency">$</span>
-                                <span class="amount">29</span>
-                                <small>/Mois</small>
-                            </div>
-                            <div class="box-content">
-                                <ul>
-                                    <li>Dental Implant</li>
-                                    <li>Another Feature</li>
-                                    <li>Another Major Feature</li>
-                                    <li>-</li>
-                                    <li>-</li>
-                                    <li>-</li>
-                                </ul>
-                                <a href="#" class="item-btn">S'abonner</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-12">
-                        <div class="pricing-box-layout1">
-                            <h3>Standard</h3>
-                            <div class="pricing title-bar-primary6">
-                                <span class="currency">$</span>
-                                <span class="amount">39</span>
-                                <small>/Mois</small>
-                            </div>
-                            <div class="box-content">
-                                <ul>
-                                    <li>Dental Implant</li>
-                                    <li>Another Feature</li>
-                                    <li>Another Major Feature</li>
-                                    <li>Emergency Care</li>
-                                    <li>-</li>
-                                    <li>-</li>
-                                </ul>
-                                <a href="#" class="item-btn">S'abonner</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-12">
-                        <div class="pricing-box-layout1">
-                            <h3>Business</h3>
-                            <div class="pricing title-bar-primary6">
-                                <span class="currency">$</span>
-                                <span class="amount">59</span>
-                                <small>/Mois</small>
-                            </div>
-                            <div class="box-content">
-                                <ul>
-                                    <li>Dental Implant</li>
-                                    <li>Another Feature</li>
-                                    <li>Another Major Feature</li>
-                                    <li>Dental Implant</li>
-                                    <li>Another Feature</li>
-                                    <li>-</li>
-                                </ul>
-                                <a href="#" class="item-btn">S'abonner</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-12">
-                        <div class="pricing-box-layout1">
-                            <h3>Premium</h3>
-                            <div class="pricing title-bar-primary6">
-                                <span class="currency">$</span>
-                                <span class="amount">99</span>
-                                <small>/Mois</small>
-                            </div>
-                            <div class="box-content">
-                                <ul>
-                                    <li>Dental Implant</li>
-                                    <li>Another Feature</li>
-                                    <li>Another Major Feature</li>
-                                    <li>Dental Implant</li>
-                                    <li>Another Feature</li>
-                                    <li>Another Major Feature</li>
-                                </ul>
-                                <a href="#" class="item-btn">S'abonner</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Special Offer End Here -->
+@include('parties.abonnements')
 <!-- Call to Action Area Start Here -->
 <section class="call-to-action-wrap-layout4">
     <div class="item-img">

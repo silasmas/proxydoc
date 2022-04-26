@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('abonnements', function (Blueprint $table) {
             $table->id();
+            $table->string('nom')->nullable();
+            $table->text('description')->nullable();
+            $table->string('duree')->nullable();
+            $table->string('prix')->nullable();
+            $table->string('monaie')->nullable();
             $table->timestamps();
         });
     }

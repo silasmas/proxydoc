@@ -15,6 +15,21 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('prenom')->nullable();
+            $table->string('email')->unique();
+            $table->string('telephone')->unique();
+            $table->string('sexe')->nullable();
+            $table->text('adresse')->nullable();
+            $table->string('pays')->nullable();
+            $table->string('ville')->nullable();
+            $table->string('fonction')->nullable();
+            $table->string('role')->nullable();
+            $table->string('niveau')->nullable();
+            $table->date('datenaissance')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

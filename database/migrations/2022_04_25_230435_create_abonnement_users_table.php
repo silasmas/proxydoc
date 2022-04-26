@@ -13,12 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('service_abonnements', function (Blueprint $table) {
+        Schema::create('abonnement_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_id')->constrained()->onUpdate('cascade')
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')
             ->onDelete('cascade');
             $table->foreignId('abonnement_id')->constrained()->onUpdate('cascade')
             ->onDelete('cascade');
+            $table->string('fdate_debut')->nullable();
+            $table->string('date_fin')->nullable();
+            $table->string('etat')->nullable();
+            $table->string('transaction_id')->unique()->nullable();
+            $table->string('moyenPaiement')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_abonnements');
+        Schema::dropIfExists('abonnement_users');
     }
 };

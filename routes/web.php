@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbonnementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,15 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('pages.home');
 })->name('home');
+Route::get('/abonnement', [AbonnementController::class,'index'])->name('abonnement');
+Route::get('/detailAbonnement', [AbonnementController::class,'detail'])->name('detailAbonnement');
 Route::get('about', function () {
     return view('pages.about');
 })->name('about');
 Route::get('services', function () {
     return view('pages.services');
 })->name('services');
-Route::get('docteur', function () {
-    return view('pages.docteurs');
-})->name('docteur');
+Route::get('/docteur', [AbonnementController::class,'docteur'])->name('docteur');
+Route::get('/detailDocteur', [AbonnementController::class,'detailDocteur'])->name('detailDocteur');
+
+
 Route::get('contact', function () {
     return view('pages.contact');
 })->name('contact');

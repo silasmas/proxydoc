@@ -15,7 +15,19 @@ class AbonnementController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.abonnement');
+    }
+    public function detail()
+    {
+        return view('pages.detailAbonnement');
+    }
+    public function docteur()
+    {
+        return view('pages.docteurs');
+    }
+    public function detailDocteur()
+    {
+        return view('pages.detailDocteur');
     }
 
     /**

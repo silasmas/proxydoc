@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/font/flaticon.css') }}">
     <!-- Meanmenu CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/meanmenu.min.css') }}">
+    @yield('autreStyle')
+
     <!-- Magnific Popup CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <!-- Owl Carousel CSS -->

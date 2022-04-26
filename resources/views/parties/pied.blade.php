@@ -26,6 +26,7 @@
 <script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
 <!-- Isotope Js -->
 <script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
+@yield('autreScript')
 <!-- Smoothscroll Js -->
 <script src="{{ asset('assets/js/smoothscroll.min.js') }}"></script>
 <!-- Custom Js -->

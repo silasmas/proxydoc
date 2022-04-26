@@ -91,7 +91,7 @@
                                 <a href="{{ route('login') }}" class="action-items-primary-btn">Connéxion<i class="fas fa-chevron-right"></i></a>
                             </li>
                             <li>
-                                <a href="{{ route('register') }}" class="action-items-primary-btn">Créer un compte<i class="fas fa-chevron-right"></i></a>
+                                <a href="{{ route('abonnement') }}" class="action-items-primary-btn">S'abonner<i class="fas fa-chevron-right"></i></a>
                             </li>
                         </ul>
                     </div>

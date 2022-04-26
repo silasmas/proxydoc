@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('achats', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('service_id')->constrained()->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->string('transaction_id')->unique()->nullable();
+            $table->string('moyenPaiement')->nullable();
             $table->timestamps();
         });
     }
