@@ -131,28 +131,28 @@ class AbonnementController extends Controller
 
 
 
-                $operateur = $retour->operateur;
+                // $operateur = $retour->operateur;
                 $data = $response_body;
 
                 $login = self::verifyLogin($request->transaction_id);
-                return view('pages.notify', compact('data', 'operateur'));
+                return view('pages.notify', compact('data'));
             } else {
                 // $retour->etat = "En attente";
                 $retour->reponse = $response_body['data']['payment_method'];
                 $retour->message = $response_body['message'];
                 $retour->save();
-                $operateur = $retour->operateur;
+                // $operateur = $retour->operateur;
                 $data = $response_body;
-                return view('pages.notify', compact('data', 'operateur'));
+                return view('pages.notify', compact('data'));
             }
         } else {
 
             $response_body = self::verifyStatus($request);
             $data = $response_body;
             $etat = "Erreur d'enregistrement";
-            $operateur = $retour->operateur;
+            // $operateur = $retour->operateur;
             //  dd($response_body."retour erreur");
-            return view('client.pages.notify', compact('data', "etat", "operateur"));
+            return view('client.pages.notify', compact('data', "etat"));
         }
     }
     /**
