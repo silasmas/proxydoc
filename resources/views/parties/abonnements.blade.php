@@ -16,7 +16,7 @@
                 <div class="pricing title-bar-primary6">
                     <span class="currency">{{ $a->monaie=="USD"?"$":"FC" }}</span>
                     <span class="amount">{{ $a->prix }}</span>
-                    <small>/{{ $a->temps }}</small>
+                    <small>/ {{ $a->duree." ".$a->temps }}</small>
                 </div>
                 <div class="box-content">
                     <ul>
