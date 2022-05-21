@@ -29,7 +29,7 @@ Route::get('/docteur', [AbonnementController::class,'docteur'])->name('docteur')
 Route::get('/detailDocteur', [AbonnementController::class,'detailDocteur'])->name('detailDocteur');
 Route::get('/createAbonnement/{id}', [AbonnementController::class,'show'])->name('createAbonnement');
 
-Route::post('/createAbonnement', [AbonnementController::class,'store'])->name('createAbonnement');
+Route::post('/abonnement', [AbonnementController::class,'store'])->name('abonnement');
 
 Route::get('/retour',[AbonnementController::class,'index'])->name('retour');
 Route::post('/retour', [AbonnementController::class,'retour'])->name('retour');

@@ -51,7 +51,7 @@
                                 L'adresse e-mail que vous utiliserez pour vous connecter
                             </p>
                         @endif
-                        <form action="{{ url('createAbonnement') }}" method="POST" data-parsley-validate>
+                        <form action="{{ url('abonnement') }}" method="POST" data-parsley-validate>
                             @csrf
                             @if (Auth::guest())
                                 <div class="row gutters-15">
