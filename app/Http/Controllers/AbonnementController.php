@@ -156,6 +156,10 @@ class AbonnementController extends Controller
                 $retour->reponse = $response_body['data']['payment_method'];
                 $retour->message = $response_body['message'];
                 $retour->save();
+
+                $paiement->moyenPaiement = $response_body['data']['payment_method'];
+                $paiement->message = $response_body['message'];
+                $paiement->save();
                 // $operateur = $retour->operateur;
                 $data = $response_body;
                 return view('pages.notify', compact('data'));
