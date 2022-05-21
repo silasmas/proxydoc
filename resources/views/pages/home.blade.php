@@ -106,6 +106,7 @@
                 </span>
             </div>
         </div>
+        <label hidden>{{ $i=1 }}</label>
         <div class="rc-carousel nav-control-layout2" data-loop="true" data-items="4" data-margin="20"
             data-autoplay="false" data-autoplay-timeout="5000" data-custom-nav="#owl-nav1" data-smart-speed="2000"
             data-dots="false" data-nav="false" data-nav-speed="false" data-r-x-small="1" data-r-x-small-nav="true"
@@ -114,54 +115,45 @@
             data-r-medium-nav="false" data-r-medium-dots="false" data-r-large="4" data-r-large-nav="false"
             data-r-large-dots="false" data-r-extra-large="4" data-r-extra-large-nav="false"
             data-r-extra-large-dots="false">
+   
+            @forelse ($service as $s)
             <div class="departments-box-layout2">
-                <span class="departments-sl">01.</span>
-
-
-
+                <span class="departments-sl">0{{ $i++ }}</span>
                 <div class="item-icon">
-                    <i>
-                        <img src="{{ asset('assets/img/png/017-comment.png') }}" style="margin-bottom: -10px">
-                    </i>
+                    @switch($s->nom)
+                        @case("ProxyChat")
+                        <i>
+                            <img src="{{ asset('assets/img/png/017-comment.png') }}" style="margin-bottom: -10px">
+                        </i>
+                            @break
+                        @case("ProxyChem")
+                        <i class="flaticon-pills"></i>
+                            @break
+                        @case("ProxyFamily")
+                        <i>
+                            <img src="{{ asset('assets/img/png/018-family-insurance-2.png') }}" style="margin-bottom: -10px">
+                        </i>
+                        
+                            @break
+                    
+                        @case("ProxyGency")
+                        <i class="flaticon-ambulance"></i>
+                            @break
+                    
+                    @endswitch
+                   
                 </div>
                 {{-- <div class="item-icon"><i class="flaticon-medical"></i></div> --}}
-                <h3 class="item-title"><a href="#">ProxyChat </a></h3>
+                <h3 class="item-title"><a href="#">{{ $s->nom }} </a></h3>
                 <p>
-                    en cliquant sur ce service ou option, le client trouvera
-                     la liste des médecins. 
+                   {{$s->description}}
                 </p>
                 <a class="item-btn" href="#">Vor plus<i class="fas fa-long-arrow-alt-right"></i></a>
-            </div>
-            <div class="departments-box-layout2">
-                <span class="departments-sl">02.</span>
-                <div class="item-icon"><i class="flaticon-pills"></i></div>
-                <h3 class="item-title"><a href="#">ProxyChem</a></h3>
-                <p>
-                    Ce service vous permet de trouver des médicaments et être servi à domicile... 
-                </p>
-                <a class="item-btn" href="#">Vor plus<i class="fas fa-long-arrow-alt-right"></i></a>
-            </div>
-            <div class="departments-box-layout2">
-                <span class="departments-sl">03.</span>
-                <div class="item-icon">
-                    <i>
-                        <img src="{{ asset('assets/img/png/018-family-insurance-2.png') }}" style="margin-bottom: -10px">
-                    </i>
-                </div>
-                {{-- <div class="item-icon"><i class="flaticon-medical-5"></i></div> --}}
-                <h3 class="item-title"><a href="#">ProxyFamily</a></h3>
-                <p>
-                  La famille est precieuse, ProxyDoc vous dispose par ce service des medecins de famille à domicile... 
-                </p>
-                <a class="item-btn" href="#">Vor plus<i class="fas fa-long-arrow-alt-right"></i></a>
-            </div>
-            <div class="departments-box-layout2">
-                <span class="departments-sl">04.</span>
-                <div class="item-icon"><i class="flaticon-ambulance"></i></div>
-                <h3 class="item-title"><a href="#">ProxyGency</a></h3>
-                <p>Ce service vous permet d'avoir notre service d'urgence 24h/7</p>
-                <a class="item-btn" href="#">Bientôt disponible<i class="fas fa-long-arrow-alt-right"></i></a>
-            </div>
+            </div>  
+            @empty
+                
+            @endforelse
+           
         </div>
     </div>
 </section>
@@ -1014,4 +1006,9 @@
 </section>
 <!-- Call to Action End Here -->
 
+@endsection
+
+@section('autreScript')
+    <!-- moyen de paiement -->
+    <script src="{{ asset('cinetpay/paiement.js') }}"></script>   
 @endsection

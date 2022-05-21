@@ -16,8 +16,11 @@ class ServiceAbonnementFactory extends Factory
      */
     public function definition()
     {
+        $services=["1","2","3", "4"];
+            $abonnement=["5", "6", "7","8"];
         return [
-            //
+            'service_id' => $this->faker->randomElement($services),
+            'abonnement_id' => $this->faker->randomElement($abonnement),
         ];
     }
 }

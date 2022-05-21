@@ -20,13 +20,13 @@
 <script src="{{ asset('assets/vendor/slider/home.js') }}"></script>
 <!-- Owl Carousel Js -->
 <script src="{{ asset('assets/vendor/OwlCarousel/owl.carousel.min.js') }}"></script>
+@yield('autreScript')
 <!-- Meanmenu Js -->
 <script src="{{ asset('assets/js/jquery.meanmenu.min.js') }}"></script>
 <!-- Magnific Popup Js -->
 <script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
 <!-- Isotope Js -->
 <script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
-@yield('autreScript')
 <!-- Smoothscroll Js -->
 <script src="{{ asset('assets/js/smoothscroll.min.js') }}"></script>
 <!-- Custom Js -->

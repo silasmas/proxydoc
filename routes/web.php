@@ -27,7 +27,13 @@ Route::get('services', function () {
 })->name('services');
 Route::get('/docteur', [AbonnementController::class,'docteur'])->name('docteur');
 Route::get('/detailDocteur', [AbonnementController::class,'detailDocteur'])->name('detailDocteur');
+Route::get('/createAbonnement/{id}', [AbonnementController::class,'show'])->name('createAbonnement');
 
+Route::post('/createAbonnement', [AbonnementController::class,'store'])->name('createAbonnement');
+
+Route::get('/retour',[AbonnementController::class,'index'])->name('retour');
+Route::post('/retour', [AbonnementController::class,'retour'])->name('retour');
+Route::post('/notify', [AbonnementController::class,'notify'])->name('notify');
 
 Route::get('contact', function () {
     return view('pages.contact');

@@ -6,28 +6,39 @@
             <p>Choisissez votre prix et forfait abordables</p>
         </div>
         <div class="row gutters-20">
+            @forelse ($abonnement as $ab)
+            @foreach ($ab as $a)
+          
+            {{-- @foreach ($c->abonnement as $a) --}}
             <div class="col-xl-3 col-lg-6 col-md-6 col-12">
-                <div class="pricing-box-layout1">
-                    <h3>Regular</h3>
-                    <div class="pricing title-bar-primary6">
-                        <span class="currency">$</span>
-                        <span class="amount">29</span>
-                        <small>/Mois</small>
-                    </div>
-                    <div class="box-content">
-                        <ul>
-                            <li>Dental Implant</li>
-                            <li>Another Feature</li>
-                            <li>Another Major Feature</li>
-                            <li>-</li>
-                            <li>-</li>
-                            <li>-</li>
-                        </ul>
-                        <a href="#" class="item-btn">S'abonner</a>
-                    </div>
+            <div class="pricing-box-layout1">
+                <h3>{{ $a->nom }}</h3>
+                <div class="pricing title-bar-primary6">
+                    <span class="currency">$</span>
+                    <span class="amount">{{ $a->prix }}</span>
+                    <small>/{{ $a->temps }}</small>
+                </div>
+                <div class="box-content">
+                    <ul>
+                        @forelse ($a->service as $s)
+                            
+                        <li>{{ $s->nom }}</li>
+                        @empty
+                            
+                        @endforelse
+                        
+                    </ul>
+                    <a href="{{ route('createAbonnement',['id'=>$a->id])}}" class="item-btn">S'abonner</a>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+        </div>
+            {{-- @endforeach --}}
+            @endforeach
+            @empty
+                
+            @endforelse
+            
+            {{-- <div class="col-xl-3 col-lg-6 col-md-6 col-12">
                 <div class="pricing-box-layout1">
                     <h3>Standard</h3>
                     <div class="pricing title-bar-primary6">
@@ -89,7 +100,7 @@
                         <a href="#" class="item-btn">S'abonner</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>

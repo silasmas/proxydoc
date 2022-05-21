@@ -16,8 +16,8 @@ class AbonnementUserFactory extends Factory
      */
     public function definition()
     {
+        $prix=["1", "2", "3","5"];
         return [
-            //
         ];
     }
 }

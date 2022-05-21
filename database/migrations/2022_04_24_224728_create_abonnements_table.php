@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nom')->nullable();
             $table->text('description')->nullable();
             $table->string('duree')->nullable();
+            $table->string('temps')->nullable();
             $table->string('prix')->nullable();
             $table->string('monaie')->nullable();
             $table->timestamps();

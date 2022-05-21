@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('service_id')->constrained()->onUpdate('cascade')
             ->onDelete('cascade');
             $table->string('transaction_id')->unique()->nullable();
+            $table->enum('etat', array('Payer','En attente'))->default('En attente');
             $table->string('moyenPaiement')->nullable();
             $table->timestamps();
         });

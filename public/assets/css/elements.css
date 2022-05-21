@@ -1070,6 +1070,18 @@ CSS INDEX
   padding-left: 7.5px;
   padding-right: 7.5px;
 }
+.row.gutters-15 .carte{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#carte {
+  padding-left:0px;
+  padding-right:0px;
+}
+#carte > [class^="col-"] {
+  padding-left: 0px;
+  padding-right: 0px;
+}
 .row.gutters-20 {
   padding-left: 5px;
   padding-right: 5px;

@@ -24,13 +24,13 @@ return new class extends Migration
             $table->string('pays')->nullable();
             $table->string('ville')->nullable();
             $table->string('fonction')->nullable();
-            $table->string('role')->nullable();
-            $table->string('niveau')->nullable();
+            $table->enum('role', array('agent','admin','docteur'))->default('agent');
+            $table->enum('niveau', array('1','2','3','4'))->default('1');
             $table->date('datenaissance')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 

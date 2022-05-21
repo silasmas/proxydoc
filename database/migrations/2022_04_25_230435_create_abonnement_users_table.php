@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up() 
     {
         Schema::create('abonnement_users', function (Blueprint $table) {
             $table->id();
@@ -19,11 +19,11 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->foreignId('abonnement_id')->constrained()->onUpdate('cascade')
             ->onDelete('cascade');
-            $table->string('fdate_debut')->nullable();
+            $table->string('date_debut')->nullable();
             $table->string('date_fin')->nullable();
-            $table->string('etat')->nullable();
+            $table->enum('etat', array('Payer','En attente'))->default('En attente');
             $table->string('transaction_id')->unique()->nullable();
-            $table->string('moyenPaiement')->nullable();
+           
             $table->timestamps();
         });
     }

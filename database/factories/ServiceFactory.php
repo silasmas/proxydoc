@@ -16,8 +16,17 @@ class ServiceFactory extends Factory
      */
     public function definition()
     {
+        $services=[
+            "ProxyChat",
+            "ProxyChem",
+            "ProxyGency",
+            "ProxyFamily"];
+        $prix=["1", "2", "3","5"];
         return [
-            //
+            'nom' => $this->faker->randomElement($services),
+            'description' => $this->faker->paragraph,
+            'prix' => $this->faker->randomElement($prix),
+            'monaie' => 'USD',
         ];
     }
 }
