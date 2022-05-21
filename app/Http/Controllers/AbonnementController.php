@@ -148,7 +148,7 @@ class AbonnementController extends Controller
                 // $operateur = $retour->operateur;
                 $data = $response_body;
 
-                $compte = self::verifyLogin($request->transaction_id);
+                $compte = self::activeCompte($request->transaction_id);
                 $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
             } else {
