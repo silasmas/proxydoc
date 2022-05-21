@@ -40,7 +40,7 @@ Route::get('contact', function () {
 })->name('contact');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('pages/home');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

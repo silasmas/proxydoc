@@ -87,9 +87,23 @@
                                     </button>
                                 </form>
                             </li>
+                            @if (!Auth::guest())
+                            <li class="">
+                                <a class="action-items-primary-btn" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                                  Déconnexion
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                            @else
                             <li>
                                 <a href="{{ route('login') }}" class="action-items-primary-btn">Connéxion<i class="fas fa-chevron-right"></i></a>
                             </li>
+                            @endif
+                            
                             <li>
                                 <a href="{{ route('abonnement') }}" class="action-items-primary-btn">S'abonner<i class="fas fa-chevron-right"></i></a>
                             </li>

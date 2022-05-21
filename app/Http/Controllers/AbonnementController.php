@@ -240,7 +240,7 @@ class AbonnementController extends Controller
                 'customer_address' => $request["customer_address"],
                 'customer_country' => $request["customer_country"],
                 'customer_zip_code' => $request["customer_zip_code"],
-                'customer_phone_number' => Auth::user()->phone,
+                'customer_phone_number' => Auth::user()->telephone,
                 'customer_state' => $request["customer_state"],
             ];
             return $cinetpay_data;
@@ -307,8 +307,11 @@ class AbonnementController extends Controller
         if (!Auth::guest()) {
             $transaction_id = self::genererTransaction_id(Auth::user()->id);
             $verification = self::verivyInfo_paiement($request);
+            $user=Auth::user();
             if ($verification) {
                 $init = self::initInfo($request, $transaction_id);
+
+               // dd($init);
                 return $ret = self::initPaie($init, $request->toArray(), $user);
             }
         } else {
