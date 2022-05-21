@@ -152,7 +152,7 @@ class AbonnementController extends Controller
             $etat = "Erreur d'enregistrement";
             // $operateur = $retour->operateur;
             //  dd($response_body."retour erreur");
-            return view('client.pages.notify', compact('data', "etat"));
+            return view('pages.notify', compact('data', "etat"));
         }
     }
     /**
