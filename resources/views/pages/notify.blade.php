@@ -32,7 +32,7 @@
         @if ($data['data']['status']=="ACCEPTED")
         <a href="{{ route('dashboard') }}" class="alert-link">Retour à l'accueil</a>
         @else
-        <a href="{{ route('abonnement') }}" class="alert-link">Retour au panier</a>
+        <a href="{{ route('abonnement') }}" class="alert-link">Retour </a>
         @endif
       
     </div>

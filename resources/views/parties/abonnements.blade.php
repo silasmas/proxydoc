@@ -14,7 +14,7 @@
             <div class="pricing-box-layout1">
                 <h3>{{ $a->nom }}</h3>
                 <div class="pricing title-bar-primary6">
-                    <span class="currency">$</span>
+                    <span class="currency">{{ $a->monaie=="USD"?"$":"FC" }}</span>
                     <span class="amount">{{ $a->prix }}</span>
                     <small>/{{ $a->temps }}</small>
                 </div>

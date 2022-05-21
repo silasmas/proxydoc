@@ -58,6 +58,22 @@ class AbonnementController extends Controller
             return $rep;
         }
     }
+    public function activeCompte($id)
+    {
+        $verify = explode('.', $id);
+                $i = $verify[0];
+                $u = User::where("id", $i)->first();
+                $u->email_verified_at=Carbon::now()->isFormat("LLL");
+                $u->save();
+
+        if ($u) {
+            event(new Registered($u));
+            Auth::login($u);
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function verifyLogin($id)
     {
         $verify = explode('.', $id);
@@ -120,20 +136,19 @@ class AbonnementController extends Controller
             if ((int)$response_body["code"] === 201 || $response_body["message"] == "SUCCES") {
                 $delait = self::delait($retour->abonnement_id);
                 $retour->etat = 'Payer';
-                $retour->date_debut = $delait[0];
-                $retour->date_fin = $delait[1];
+                $retour->date_debut = $delait[0]->isFormat("LLL");
+                $retour->date_fin = $delait[1]->isFormat("LLL");
                 $retour->save();
 
                 $paiement->type = 'Payer';
                 $paiement->moyenPaiement = $response_body['data']['payment_method'];
                 $paiement->message = $response_body['message'];
                 $paiement->save();
-
-
-
+               
                 // $operateur = $retour->operateur;
                 $data = $response_body;
 
+                $compte = self::verifyLogin($request->transaction_id);
                 $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
             } else {
