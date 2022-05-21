@@ -110,8 +110,8 @@ class AbonnementController extends Controller
     public function retour(Request $request)
     {
 
-        $retour = abonnementUser::where(["transaction_id", $request->transaction_id])->first();
-        $paiement = paiement::where(["transaction_id", $request->transaction_id])->first();
+        $retour = abonnementUser::where("transaction_id", $request->transaction_id)->first();
+        $paiement = paiement::where("transaction_id", $request->transaction_id)->first();
 
         if ($retour) {
 
