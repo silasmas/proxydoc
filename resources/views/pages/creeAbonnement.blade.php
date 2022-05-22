@@ -34,6 +34,7 @@
                     <div class="appointment-box-layout1">
 
                         <div class="col-xl-12 ">
+
                             <p class="text-danger">
                                 @if (session()->has('message'))
                                 {{ session()->get('message') }}
@@ -44,12 +45,65 @@
                                     {{ $err }}
                                 </p>
                             @endforeach
+                            <div class="col-12 form-group text-center">
+                                <button class="item-btn factureVue" value="cacher" onclick="viewFacture(this)">
+                                    Derouler la facture
+                                </button>
+                            </div>
+                            <div id='facture' hidden>
+                                <h2 class="title title-bar-primary2">
+                                    Detail de la facture
+                                </h2>
+                                <div class="single-product-tab">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item">
+                                                    <a href="#description" data-toggle="tab" aria-expanded="false" class="active">Detail</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#review" data-toggle="tab" aria-expanded="false">
+                                                            Description({{count($services) }})</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane fade active show" id="description">
+                                                    {{-- <p></p> --}}
+                                                    <ul class="list-content">
+                                                        <li>Abonnement : {{$ab->nom }} </li>
+                                                        <li>Total à payer : {{$ab->prix.$ab->monaie }}</li>
+                                                        <li>Durée : {{$ab->duree.$ab->temps }}</li>
+                                                    </ul>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="review">
+                                                    <ul class="list-content">
+                                                        @forelse ($services as $s)
+                                                        <li>Abonnement : {{$s->nom }} </li>  
+                                                            @foreach ($s->acte as $a)
+                                                                <small>
+                                                                    {{ $a->nom }}, 
+                                                                </small>
+                                                            @endforeach                                                     
+                                                        @empty
+                                                            
+                                                        @endforelse
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
                         </div>
                         @if (Auth::guest())
                             <h2 class="title title-bar-primary2">Créer votre compte</h2>
                             <p>
-                                L'adresse e-mail que vous utiliserez pour vous connecter
+                                J'ai un compte <a href="{{ route('login') }}">Me connecter</a>
                             </p>
+                            
                         @endif
                         <form action="{{ url('abonnement') }}" method="POST" data-parsley-validate>
                             @csrf
@@ -187,7 +241,20 @@
             var moyen = document.querySelector('select.moyen').value;
             switch_modepaie(moyen);
         });
+        function viewFacture(val) {
+            // alert(val.value)
+            if (val.value==="cacher") {
+                document.querySelector('.factureVue').setAttribute("value","vue");
+             
+                val.textContent="Rouler la facture";
+                document.querySelector('#facture').removeAttribute("hidden");
 
+            } else {
+                val.textContent="Derouler la facture";
+                document.querySelector('.factureVue').setAttribute("value","cacher");
+                document.querySelector('#facture').setAttribute("hidden","");
+            }
+        }
         function switch_modepaie(val) {
             switch (val) {
                 case "MOBILE_MONEY":

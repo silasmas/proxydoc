@@ -412,11 +412,13 @@ class AbonnementController extends Controller
     {
         
         // $abonnement= $abonnement=abonnement::with('service','service.acte')->joinRelationship('service')->where('abonnements.id',$id)->get();
-        $abonnement = abonnement::with('service', 'service.acte')->where('abonnements.id', $id)->first();
+        $a = abonnement::with('service', 'service.acte')->where('abonnements.id', $id)->first();
         $ab = abonnement::with('service')->where('id', $id)->first();
+        $services=$ab->service;
+        // dd($abonnement);
         // $delait = self::delait($id);
         // dd($delait[0]->isoFormat("YYYY-MM-DD H:M:S"));
-        return view('pages.creeAbonnement', compact("abonnement", "ab"));
+        return view('pages.creeAbonnement', compact("services", "ab"));
     }
 
     /**
