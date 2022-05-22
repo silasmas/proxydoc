@@ -153,9 +153,9 @@ class AbonnementController extends Controller
                 return view('pages.notify', compact('data'));
             } else {
                 // $retour->etat = "En attente";
-                $retour->reponse = $response_body['data']['payment_method'];
-                $retour->message = $response_body['message'];
-                $retour->save();
+                // $retour->reponse = $response_body['data']['payment_method'];
+                // $retour->message = $response_body['message'];
+                // $retour->save();
 
                 $paiement->moyenPaiement = $response_body['data']['payment_method'];
                 $paiement->message = $response_body['message'];
@@ -335,7 +335,7 @@ class AbonnementController extends Controller
             }
         } else {
             $compteExiste = self::verifyCompte($request->email);
-             //dd($compteExiste[0]);
+             //dd($compteExiste);
             if ($compteExiste[0] == true) {
                 if ($compteExiste[1] == true) {
                     return back()->with('message', 'Cet email a déjà un compte merci de vous connecté pour continuer le paiement');
