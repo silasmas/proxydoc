@@ -73,7 +73,7 @@
                                                     {{-- <p></p> --}}
                                                     <ul class="list-content">
                                                         <li>Abonnement : {{$ab->nom }} </li>
-                                                        <li>Total à payer : {{$ab->prix.$ab->monaie }}</li>
+                                                        <li>Total à payer : {{$ab->prix }}{{ $ab->monaie=="USD"?"$":"FC" }}</li>
                                                         <li>Durée : {{$ab->duree.$ab->temps }}</li>
                                                     </ul>
                                                 </div>
