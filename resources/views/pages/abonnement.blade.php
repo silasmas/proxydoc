@@ -1,4 +1,7 @@
-@extends('templates.template',['titre'=>"liste abonnement"])
+@extends('templates.template',)
+
+@section("title","Nos abonnement")
+@section("page","Abonnement")
 
 @section('content')
  <!-- Inne Page Banner Area Start Here -->

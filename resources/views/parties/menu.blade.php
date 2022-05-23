@@ -124,7 +124,7 @@
                            </nav>
                        </div>
                    </div>
-                   <div class="col-lg-5 col-md-5">
+                   <div class="col-lg-5 col-md-5    ">
                        <div class="header-action-items-layout1">
                            <ul>
                                @auth                                   

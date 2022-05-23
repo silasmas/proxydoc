@@ -1,5 +1,5 @@
 @extends('templates.template')
-@section("title","Accueil")
+@section('title', 'Accueil')
 @section('content')
     <!-- Slider Area Start Here -->
     <div class="slider-area slider-layout1 bg-light-primary slider-top-margin">
@@ -961,7 +961,7 @@
                         <h4 class="phone-number">ProxyGency</h4>
                         <p>
                             Construire un environnement
-                            sain qui soutient le développement de la communauté. 
+                            sain qui soutient le développement de la communauté.
                             Votre gestionnaire de cas personnel veillera à ce que vous receviez
                             les meilleurs soins possibles.
                         </p>
@@ -985,7 +985,7 @@
                             Nous fournissons le plus haut niveau de soins et de services de satisfaction à nos patients.
                         </h2>
                         <div class="call-to-action-phone">
-                            <a href="tel:+243 827839232><i class="fas fa-phone"></i>+243 827839232</a>
+                            <a href="tel:+243 827839232><i class=" fas fa-phone"></i>+243 827839232</a>
                         </div>
                         <div class="call-to-action-btn">
                             <a href="#" onclick="info('contact')" class="item-btn">Nous contacter</a>
@@ -1004,41 +1004,47 @@
         function info(val) {
             event.preventDefault()
             switch (val) {
-                    case "rdv":
+                case "rdv":
                     message(
-                        @verbatim                            
-                        'pour avoir un rendez-vous',"Verifiez que vous êtes abonnez à ce service dans le menu (Mon compte->Mes abonnements) et prenez votre rendez-vous")
+                        @verbatim 'pour avoir un rendez-vous',
+                        "Verifiez que vous êtes abonnez à ce service dans le menu (Mon compte->Mes abonnements) et prenez votre rendez-vous"
                         @endverbatim
-                    break;
-                    case "pdoc":
-                    message('et discutez avec nos medecins',"Verifiez que vous êtes abonnez à ce service dans le menu (Mon compte->Mes abonnements) et parlez à un medecin")
-                    break;
-                    case "contact":
-                    message(
-                    "Notre service client est disponible sur whatssapp en bas à droit du site","Notre service client est disponible sur whatssapp en bas à droit du site")
-                    break;
-                    case "urgence":
-                    message('et soyez sécouru d\'urgence',"Verifiez que vous êtes abonnez à ce service dans le menu (Mon compte->Mes abonnements) et appelez nous au numéro d'urgence")
-                    break;
+                        )
+            break;
+            case "pdoc":
+            message('et discutez avec nos medecins',
+                "Verifiez que vous êtes abonnez à ce service dans le menu (Mon compte->Mes abonnements) et parlez à un medecin"
+                )
+            break;
+            case "contact":
+            message(
+                "Notre service client est disponible sur whatssapp en bas à droit du site",
+                "Notre service client est disponible sur whatssapp en bas à droit du site")
+            break;
+            case "urgence":
+            message('et soyez sécouru d\'urgence',
+                "Verifiez que vous êtes abonnez à ce service dans le menu (Mon compte->Mes abonnements) et appelez nous au numéro d'urgence"
+                )
+            break;
 
-            }
+        }
         }
 
-        function message(text,txte) {
-            var txt=" Abonnez à nos services et béneficierez de ce service, sinon connectez vous ";
-            
-            @auth                
+        function message(text, txte) {
+            var txt = " Abonnez à nos services et béneficierez de ce service, sinon connectez vous ";
+
+            @auth
             swal({
                 title: txte,
                 icon: 'info'
             })
-            @endauth
-            @guest
-            swal({
-                title: txt.text,
-                icon: 'info'
-            })
-            @endguest
+        @endauth
+        @guest
+        swal({
+            title: txt.text,
+            icon: 'info'
+        })
+        @endguest
         }
     </script>
 @endsection
