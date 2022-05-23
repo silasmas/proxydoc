@@ -26,7 +26,9 @@ class AbonnementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {    
+        $rep=self::verifyStatus("1.QaaS50jq1P");
+        dd($rep);   
         return view('pages.abonnement');
     }
     public function detail()
@@ -91,36 +93,42 @@ class AbonnementController extends Controller
     }
     public function notify(Request $request)
     {
-        $retour = abonnementUser::where(["transaction_id", $request->transaction_id])->first();
-        //  dd($request->transaction_id);
+        
+        $retour = abonnementUser::where("transaction_id", $request->transaction_id)->first();
+        $paiement = paiement::where("transaction_id", $request->transaction_id)->first();
 
         if ($retour) {
-            $response_body = self::verifyStatus($request);
-            if ((int)$response_body["code"] === 201 || $response_body["message"] == "SUCCES") {
+
+            $response_body = self::verifyStatus($request->transaction_id);
+            // dd($response_body);
+            if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
+                $delait = self::delait($retour->abonnement_id);
                 $retour->etat = 'Payer';
-                $retour->reponse = $response_body['data']['payment_method'];
-                $retour->message = $response_body['message'];
+                $retour->date_debut = $delait[0]->isoFormat("YYYY-MM-DD H:M:S");
+                $retour->date_fin = $delait[1]->isoFormat("YYYY-MM-DD H:M:S");
                 $retour->save();
-                $operateur = $retour->operateur;
-                $data = $response_body;
-                $login = self::verifyLogin($request->transaction_id);
-                return view('client.pages.notify', compact('data', 'operateur'));
+
+                $paiement->type = $response_body['code'];
+                $paiement->moyenPaiement = $response_body['data']['payment_method'];
+                $paiement->message = $response_body['message'];
+                $paiement->reference = $response_body['data']['status'];
+                $paiement->save();
+
+                return dd($response_body['data']['status']);
             } else {
-                // $retour->etat = "En attente";
-                $retour->reponse = $response_body['data']['payment_method'];
-                $retour->message = $response_body['message'];
+                $retour->etat =  $response_body['data']['status'];
                 $retour->save();
-                $operateur = $retour->operateur;
+
+                $paiement->moyenPaiement = $response_body['data']['payment_method'];
+                $paiement->message = $response_body['message'];
+                $paiement->type = $response_body['code'];
+                $paiement->reference = $response_body['data']['status'];
+                $paiement->save();
                 $data = $response_body;
-                return view('client.pages.notify', compact('data', 'operateur'));
+                return dd($response_body['data']['status']);
             }
         } else {
-
-            $response_body = self::verifyStatus($request);
-            $data = $response_body;
-            $etat = "Erreur d'enregistrement";
-            $operateur = $retour->operateur;
-            return view('client.pages.notify', compact('data', "etat", "operateur"));
+            return dd($retour);
         }
     }
     public function retour(Request $request)
@@ -131,36 +139,19 @@ class AbonnementController extends Controller
 
         if ($retour) {
 
-            $response_body = self::verifyStatus($request);
+            $response_body = self::verifyStatus($request->transaction_id);
             // dd($response_body);
-            if ((int)$response_body["code"] === 201 || $response_body["message"] == "SUCCES") {
-                $delait = self::delait($retour->abonnement_id);
-                $retour->etat = 'Payer';
-                $retour->date_debut = $delait[0]->isoFormat("YYYY-MM-DD H:M:S");
-                $retour->date_fin = $delait[1]->isoFormat("YYYY-MM-DD H:M:S");
-                $retour->save();
-
-                $paiement->type = 'Payer';
-                $paiement->moyenPaiement = $response_body['data']['payment_method'];
-                $paiement->message = $response_body['message'];
-                $paiement->save();
+            if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
                
-                // $operateur = $retour->operateur;
                 $data = $response_body;
 
                 $compte = self::activeCompte($request->transaction_id);
                 $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
             } else {
-                // $retour->etat = "En attente";
-                // $retour->reponse = $response_body['data']['payment_method'];
-                // $retour->message = $response_body['message'];
-                // $retour->save();
-
                 $paiement->moyenPaiement = $response_body['data']['payment_method'];
                 $paiement->message = $response_body['message'];
                 $paiement->save();
-                // $operateur = $retour->operateur;
                 $data = $response_body;
                 return view('pages.notify', compact('data'));
             }
@@ -169,8 +160,6 @@ class AbonnementController extends Controller
             $response_body = self::verifyStatus($request);
             $data = $response_body;
             $etat = "Erreur d'enregistrement";
-            // $operateur = $retour->operateur;
-            //  dd($response_body."retour erreur");
             return view('pages.notify', compact('data', "etat"));
         }
     }
@@ -188,7 +177,7 @@ class AbonnementController extends Controller
         $cinetpay_verify =  [
             "apikey" => env("CINETPAY_APIKEY"),
             "site_id" => env("CINETPAY_SERVICD_ID"),
-            "transaction_id" => $request->transaction_id,
+            "transaction_id" => $request,
         ];
         $response = Http::asJson()->post($url, $cinetpay_verify);
         $response_body = json_decode($response->body(), JSON_THROW_ON_ERROR | true, 512, JSON_THROW_ON_ERROR);

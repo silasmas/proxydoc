@@ -21,7 +21,7 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->string('date_debut')->nullable();
             $table->string('date_fin')->nullable();
-            $table->enum('etat', array('Payer','En attente'))->default('En attente');
+            $table->string('etat')->default('En attente');
             $table->string('transaction_id')->unique()->nullable();
            
             $table->timestamps();
