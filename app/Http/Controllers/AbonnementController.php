@@ -27,7 +27,7 @@ class AbonnementController extends Controller
      */
     public function index()
     {
-        // $rep=self::verifyStatus("8.PXp7y16QTh");
+        // $rep=self::verifyStatus("8.ZabjB4FDNL");
         // dd($rep);   
         return view('pages.abonnement');
     }
@@ -92,16 +92,17 @@ class AbonnementController extends Controller
     }
     public function notify(Request $request)
     {
-
         $retour = abonnementUser::where("transaction_id", $request->cpm_trans_id)->first();
         $paiement = paiement::where("transaction_id", $request->cpm_trans_id)->first();
+        /**
+         * composition de la variable reponse, c'est une concatenation de montant+monaie+
+         * signature+telephone+prefix du pay+la langue+la version+la configuration+l'action
+         * * */
         $reponse=$request->cpm_amount."/".$request->cpm_currency."/".$request->signature."/".$request->cel_phone_num."/".
         $request->cpm_phone_prefixe."/".$request->cpm_language."/".$request->cpm_version."/".$request->cpm_payment_config."/".$request->cpm_page_action;
         
         if ($retour) {
-
             $response_body = self::verifyStatus($request->cpm_trans_id);
-            // dd($response_body);
             if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
                 $delait = self::delait($retour->abonnement_id);
                 $retour->etat = 'Payer';
@@ -141,23 +142,17 @@ class AbonnementController extends Controller
     }
     public function retour(Request $request)
     {
-
         $retour = abonnementUser::where("transaction_id", $request->transaction_id)->first();
         $paiement = paiement::where("transaction_id", $request->transaction_id)->first();
 
         if ($retour) {
-
             $response_body = self::verifyStatus($request->transaction_id);
             // dd($response_body);
             if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
-
                 $data = $response_body;                
                 $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
             } else {
-                // $paiement->moyenPaiement = $response_body['data']['payment_method'];
-                // $paiement->message = $response_body['message'];
-                // $paiement->save();
                 $data = $response_body;
                 $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
@@ -231,7 +226,7 @@ class AbonnementController extends Controller
                 "apikey" => env("CINETPAY_APIKEY"),
                 "site_id" => env("CINETPAY_SERVICD_ID"),
                 "transaction_id" => $transaction_id,
-                "description" => "Achat formation",
+                "description" => "Achat abonnement",
                 "return_url" => env("RETURN_URL"),
                 "notify_url" => env("NOTIFY_URL"),
                 'channels' => $request["channels"],
@@ -244,7 +239,7 @@ class AbonnementController extends Controller
                 "apikey" => env("CINETPAY_APIKEY"),
                 "site_id" => env("CINETPAY_SERVICD_ID"),
                 "transaction_id" => $transaction_id,
-                "description" => "Achat formation",
+                "description" => "Achat abonnement",
                 "return_url" => env("RETURN_URL"),
                 "notify_url" => env("NOTIFY_URL"),
                 'channels' => $request["channels"],
