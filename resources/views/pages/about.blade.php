@@ -1,4 +1,4 @@
-@extends('templates.template',['titre'=>"Home dev"])
+@extends('templates.template')
 @section("title","Qui sommes-nous")
 @section("page","A propos")
 @section('content')

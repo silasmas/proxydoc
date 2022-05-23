@@ -1,5 +1,9 @@
 @extends('templates.template')
 @section('title', 'Accueil')
+@section('autreStyle')
+    <link href="{{ asset('js/sweetalert/sweetalert.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <!-- Slider Area Start Here -->
     <div class="slider-area slider-layout1 bg-light-primary slider-top-margin">
@@ -1005,10 +1009,8 @@
             event.preventDefault()
             switch (val) {
                 case "rdv":
-                    message(
-                        @verbatim 'pour avoir un rendez-vous',
+                    message('pour avoir un rendez-vous',
                         "Verifiez que vous êtes abonnez à ce service dans le menu (Mon compte->Mes abonnements) et prenez votre rendez-vous"
-                        @endverbatim
                         )
             break;
             case "pdoc":
@@ -1038,13 +1040,13 @@
                 title: txte,
                 icon: 'info'
             })
-        @endauth
-        @guest
-        swal({
-            title: txt.text,
-            icon: 'info'
-        })
-        @endguest
+            @endauth
+            @guest
+            swal({
+                title: txt+text,
+                icon: 'info'
+            })
+            @endguest
         }
     </script>
 @endsection

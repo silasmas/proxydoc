@@ -26,8 +26,7 @@ class AbonnementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
+    {        
         return view('pages.abonnement');
     }
     public function detail()
