@@ -27,7 +27,7 @@ class AbonnementController extends Controller
      */
     public function index()
     {
-        // $rep=self::verifyStatus("1.QaaS50jq1P");
+        // $rep=self::verifyStatus("8.PXp7y16QTh");
         // dd($rep);   
         return view('pages.abonnement');
     }
@@ -80,11 +80,10 @@ class AbonnementController extends Controller
     {
         $verify = explode('.', $id);
         $id = $verify[0];
-        $u = User::where("id", $id)->first();
+        $u = User::where([["id", $id],["email_verified_at",'<>',null]])->first();
 
         if ($u) {
             event(new Registered($u));
-
             Auth::login($u);
             return true;
         } else {
@@ -153,6 +152,7 @@ class AbonnementController extends Controller
                 $paiement->message = $response_body['message'];
                 $paiement->save();
                 $data = $response_body;
+                $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
             }
         } else {
