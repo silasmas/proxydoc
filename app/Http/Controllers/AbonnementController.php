@@ -27,8 +27,8 @@ class AbonnementController extends Controller
      */
     public function index()
     {    
-        $rep=self::verifyStatus("1.QaaS50jq1P");
-        dd($rep);   
+        // $rep=self::verifyStatus("1.QaaS50jq1P");
+        // dd($rep);   
         return view('pages.abonnement');
     }
     public function detail()
