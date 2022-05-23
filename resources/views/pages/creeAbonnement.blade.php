@@ -1,4 +1,13 @@
-@extends('templates.template', ['titre' => "S'abonner"])
+@extends('templates.template')
+
+@section("title","S'abonner")
+@section("page","Abonnement")
+@section("page2","caisse")
+@section("parent")
+<li>
+    <a href="{{ route('abonnement') }}">Abonnement</a>
+</li> 
+@endsection
 
 @section('autreStyle')
     <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
@@ -7,24 +16,8 @@
     <link href="{{ asset('js/sweetalert/sweetalert.css') }}" rel="stylesheet">
 @endsection
 @section('content')
-    <section class="inner-page-banner bg-common inner-page-top-margin"
-        data-bg-image="{{ asset('assets/img/slider/figure2.jpg') }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumbs-area">
-                        <h1>Abonnez-vous</h1>
-                        <ul>
-                            <li>
-                                <a href="{{ route('home') }}">Accueil</a>
-                            </li>
-                            <li>S'abonner</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+@parent
+ @include("parties.banner")
     <!-- Gallery Area Start Here -->
     <section class="appointment-wrap-layout1 bg-light-accent100">
         <div class="container">
@@ -37,7 +30,7 @@
 
                             <p class="text-danger">
                                 @if (session()->has('message'))
-                                {{ session()->get('message') }}
+                                    {{ session()->get('message') }}
                                 @endif
                             </p>
                             @foreach ($errors->all() as $err)
@@ -59,11 +52,12 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <ul class="nav nav-tabs">
                                                 <li class="nav-item">
-                                                    <a href="#description" data-toggle="tab" aria-expanded="false" class="active">Detail</a>
+                                                    <a href="#description" data-toggle="tab" aria-expanded="false"
+                                                        class="active">Detail</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#review" data-toggle="tab" aria-expanded="false">
-                                                            Description({{count($services) }})</a>
+                                                        Description({{ count($services) }})</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -72,22 +66,22 @@
                                                 <div role="tabpanel" class="tab-pane fade active show" id="description">
                                                     {{-- <p></p> --}}
                                                     <ul class="list-content">
-                                                        <li>Abonnement : {{$ab->nom }} </li>
-                                                        <li>Total à payer : {{$ab->prix }}{{ $ab->monaie=="USD"?"$":"FC" }}</li>
-                                                        <li>Durée : {{$ab->duree.$ab->temps }}</li>
+                                                        <li>Abonnement : {{ $ab->nom }} </li>
+                                                        <li>Total à payer :
+                                                            {{ $ab->prix }}{{ $ab->monaie == 'USD' ? "$" : 'FC' }}</li>
+                                                        <li>Durée : {{ $ab->duree . $ab->temps }}</li>
                                                     </ul>
                                                 </div>
                                                 <div role="tabpanel" class="tab-pane fade" id="review">
                                                     <ul class="list-content">
                                                         @forelse ($services as $s)
-                                                        <li>Abonnement : {{$s->nom }} </li>  
+                                                            <li>Abonnement : {{ $s->nom }} </li>
                                                             @foreach ($s->acte as $a)
                                                                 <small>
-                                                                    {{ $a->nom }}, 
+                                                                    {{ $a->nom }},
                                                                 </small>
-                                                            @endforeach                                                     
+                                                            @endforeach
                                                         @empty
-                                                            
                                                         @endforelse
                                                     </ul>
                                                 </div>
@@ -103,7 +97,6 @@
                             <p>
                                 J'ai un compte <a href="{{ route('login') }}">Me connecter</a>
                             </p>
-                            
                         @endif
                         <form action="{{ url('abonnement') }}" method="POST" data-parsley-validate>
                             @csrf
@@ -241,20 +234,22 @@
             var moyen = document.querySelector('select.moyen').value;
             switch_modepaie(moyen);
         });
+
         function viewFacture(val) {
             // alert(val.value)
-            if (val.value==="cacher") {
-                document.querySelector('.factureVue').setAttribute("value","vue");
-             
-                val.textContent="Rouler la facture";
+            if (val.value === "cacher") {
+                document.querySelector('.factureVue').setAttribute("value", "vue");
+
+                val.textContent = "Rouler la facture";
                 document.querySelector('#facture').removeAttribute("hidden");
 
             } else {
-                val.textContent="Derouler la facture";
-                document.querySelector('.factureVue').setAttribute("value","cacher");
-                document.querySelector('#facture').setAttribute("hidden","");
+                val.textContent = "Derouler la facture";
+                document.querySelector('.factureVue').setAttribute("value", "cacher");
+                document.querySelector('#facture').setAttribute("hidden", "");
             }
         }
+
         function switch_modepaie(val) {
             switch (val) {
                 case "MOBILE_MONEY":
@@ -290,3 +285,4 @@
         }
     </script>
 @endsection
+

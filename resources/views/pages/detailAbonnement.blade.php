@@ -1,4 +1,11 @@
-@extends('templates.template',['titre'=>"liste abonnement"])
+@extends('templates.template')
+@section("title","Nos services")
+@section("page2","Details de nos services")
+@section("parent")
+<li>
+    <a href="{{ route('services') }}">Services</a>
+</li> 
+@endsection
 
 @section('autreStyle')
     <!-- Select2 CSS -->
@@ -7,29 +14,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/jquery.datetimepicker.css') }}">
 @endsection
 @section('content')
-    <!-- Inne Page Banner Area Start Here -->
-    <section class="inner-page-banner bg-common inner-page-top-margin"
-        data-bg-image="{{ asset('assets/img/slider/figure2.jpg') }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumbs-area">
-                        <h1>Details de nos services</h1>
-                        <ul>
-                            <li>
-                                <a href="{{ route('home') }}">Accueil</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('abonnement') }}">Abonnement</a>
-                            </li>
-                            <li>Detail services</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Inne Page Banner Area End Here -->
+   
+@include("parties.banner")
     <!-- Single Department Start Here -->
     <section class="single-department-wrap-layout1 bg-light-primary100">
         <div class="container">

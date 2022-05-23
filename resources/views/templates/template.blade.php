@@ -2,7 +2,7 @@
 
 @include('parties.menu')
 
-@yield('content')
+@yield('content','titre')
 
 
 @include('parties.footer')

@@ -31,6 +31,8 @@
 <script src="{{ asset('assets/js/smoothscroll.min.js') }}"></script>
 <!-- Custom Js -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
+<script async src='https://stackwhats.com/pixel/2fa93742e74205573241c74f75d46f'></script>
 @if (!Auth::guest())
     <!--Start of Tawk.to Script-->
  <script type="text/javascript">

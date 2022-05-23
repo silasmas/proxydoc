@@ -1,29 +1,14 @@
 @extends('templates.template',['titre'=>"Home dev"])
+@section("title","Nos docteurs")
+@section("page2","Details du medecin")
+@section("parent")
+<li>
+    <a href="{{ route('docteur') }}">Médecins</a>
+</li> 
+@endsection
 
 @section('content')
-  <!-- Inne Page Banner Area Start Here -->
-  <section class="inner-page-banner bg-common inner-page-top-margin" 
-  data-bg-image="{{ asset('assets/img/slider/figure2.jpg') }}">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumbs-area">
-                    <h1>Profil du médecin</h1>
-                    <ul>
-                        <li>
-                            <a href="{{ route('home') }}">Accueil</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('abonnement') }}">Docteurs</a>
-                        </li>
-                        <li>Profil du médecin</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Inne Page Banner Area End Here -->
+@include("parties.banner")
         <!-- Doctors Detail Start Here -->
         <section class="team-details-wrap-layout1 bg-light-accent100">
             <div class="container">

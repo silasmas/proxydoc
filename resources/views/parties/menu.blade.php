@@ -1,4 +1,5 @@
    <!-- Header Area Start Here -->
+  
    <header id="header_1">
        <div class="header-top-bar top-bar-border-bottom bg-light-primary100 d-none d-md-block">
            <div class="container">
@@ -6,6 +7,13 @@
                    <div class="col-xl-8 col-lg-12 col-md-12 col-12 header-contact-layout1">
                        <ul>
                            <li>
+                            @env('staging')
+                            {{  "The application is running in staging"}}
+                         @endenv
+                         
+                         @env(['staging', 'production'])
+                              {{ "The application is running in staging production" }}
+                         @endenv
                                <i class="fas fa-phone"></i>Call: 123 884400
                            </li>
                            <li>
@@ -52,12 +60,12 @@
            <div class="container">
                <div class="row no-gutters d-flex align-items-center">
                    <div class="col-lg-1 col-md-1 logo-area-layout1">
-                       <a href="index.html" class="temp-logo">
+                       <a href="{{ route('home') }}" class="temp-logo">
                            <img src="{{ asset('assets/logo/logo1.png') }}" alt="logo" height="70" width="70"
                                class="img-fluid">
                        </a>
                    </div>
-                   <div class="col-lg-7 col-md-7 possition-static">
+                   <div class="col-lg-6 col-md-6 possition-static content-center text-center">
                        <div class="template-main-menu">
                            <nav id="dropdown">
                                <ul>
@@ -73,64 +81,68 @@
                                    <li>
                                        <a href="{{ route('docteur') }}">Nos docteurs</a>
                                    </li>
-                                   <li>
+                                   {{-- <li>
                                        <a href="{{ route('contact') }}">Contact</a>
-                                   </li>
-                                   @if (Auth::guest())
+                                   </li> --}}
+                                   @guest
                                        <li class="hide-on-desktop-menu">
-                                           <a href="{{ route('login') }}" class="action-items-primary-btn">Connéxion</a>
+                                           <a href="{{ route('login') }}"
+                                               class="action-items-primary-btn">Connéxion</a>
                                        </li>
-                                   @endif
+                                       @endguest
 
                                    <li class="hide-on-desktop-menu">
                                        <a href="{{ route('abonnement') }}"
                                            class="action-items-primary-btn">S'abonner</a>
                                    </li>
-                                   @if (!Auth::guest())
-                                       <li>
-                                           <a href="#">Mon compte</a>
-                                           <ul class="dropdown-menu-col-1">
-                                               <li>
-                                                   <a href="doctors1.html">Mes abonnements</a>
-                                               </li>
-                                               <li>
-                                                   <a href="doctors2.html">Mon profil</a>
-                                               </li>
-                                               <li>
-                                                   <a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                                       Déconnexion
-                                                   </a>
-                                                   <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                       class="d-none">
-                                                       @csrf
-                                                   </form>
-                                               </li>
-                                           </ul>
-                                       </li>
-                                       </li>
-                                   @endif
+                                 
+                                        @auth
+                                            <li>
+                                                <a href="#">Mon compte</a>
+                                                <ul class="dropdown-menu-col-1">
+                                                    <li>
+                                                        <a href="doctors1.html">Mes abonnements</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="doctors2.html">Mon profil</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                                            Déconnexion
+                                                        </a>
+                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                            class="d-none">
+                                                            @csrf
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        @endauth
+                                  
                                </ul>
                            </nav>
                        </div>
                    </div>
-                   <div class="col-lg-4 col-md-4">
+                   <div class="col-lg-5 col-md-5">
                        <div class="header-action-items-layout1">
                            <ul>
-                               {{-- <li class="d-none d-xl-block">
+                               @auth                                   
+                               <li class="d-none d-xl-block">
                                    <form id="top-search-form" class="header-search-dark">
-                                       <input type="text" class="search-input" placeholder="Search...." required="">
+                                       <input type="text" class="search-input" placeholder="cherchez un service par son nom" required="">
                                        <button class="search-button">
                                            <i class="flaticon-search"></i>
                                        </button>
                                    </form>
-                               </li> --}}
-                               @if (Auth::guest())
+                               </li> 
+                               @endauth
+                               @guest
                                    <li>
                                        <a href="{{ route('login') }}" class="action-items-primary-btn">Connéxion<i
                                                class="fas fa-chevron-right"></i></a>
                                    </li>
-                               @endif
+                               @endguest
 
                                <li>
                                    <a href="{{ route('abonnement') }}" class="action-items-primary-btn">S'abonner<i

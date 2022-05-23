@@ -1,25 +1,8 @@
 @extends('templates.template',['titre'=>"Home dev"])
-
+@section("title","Qui sommes-nous")
+@section("page","A propos")
 @section('content')
-   <!-- Inne Page Banner Area Start Here -->
-   <section class="inner-page-banner bg-common inner-page-top-margin" data-bg-image="{{ asset('assets/img/slider/figure2.jpg') }}">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumbs-area">
-                    <h1>Apropo de nous</h1>
-                    <ul>
-                        <li>
-                            <a href="index.html">Accueil</a>
-                        </li>
-                        <li>Apropo</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Inne Page Banner Area End Here -->
+  @include("parties.banner")
 
    <!-- About Us Start Here -->
    <section class="about-wrap-layout5">
