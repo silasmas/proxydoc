@@ -112,7 +112,7 @@ class AbonnementController extends Controller
                 $paiement->message = $response_body['message'];
                 $paiement->reference = $response_body['data']['status'];
                 $paiement->save();
-
+                $compte = self::activeCompte($request->transaction_id);
                 return dd($response_body['data']['status']);
             } else {
                 $retour->etat =  $response_body['data']['status'];
@@ -142,9 +142,7 @@ class AbonnementController extends Controller
             // dd($response_body);
             if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
 
-                $data = $response_body;
-
-                $compte = self::activeCompte($request->transaction_id);
+                $data = $response_body;                
                 $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
             } else {
