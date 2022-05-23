@@ -21,7 +21,8 @@
             <div class="col-xl-3 col-lg-6 col-md-6 col-12">
                 <div class="pricing-box-layout1">
                     <h3>{{ $a->nom }}</h3>
-                    <small>{{ $a->date_debut }}</small>
+                    <small>Date debut :{{ $a->date_debut }}</small><br>
+                    <small>Date fin :{{ $a->date_fin }}</small><br>
                     <div class="pricing title-bar-primary6">
                         {{-- <span class="currency">{{ $a->monaie=="USD"?"$":"FC" }}</span> --}}
                         <span class="amount">{{ $a->duree }}</span>
