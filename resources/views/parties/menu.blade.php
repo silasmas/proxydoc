@@ -65,7 +65,7 @@
                                class="img-fluid">
                        </a>
                    </div>
-                   <div class="col-lg-6 col-md-6 possition-static content-center text-center">
+                   <div class="col-lg-6 col-md-6 possition-static">
                        <div class="template-main-menu">
                            <nav id="dropdown">
                                <ul>
