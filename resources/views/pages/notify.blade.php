@@ -17,25 +17,28 @@
 
 <body class="antialiased">
 
-    
+
     <div class="container">
-        <div class="alert {{ $data['data']['status']=="ACCEPTED"?"alert-success":"alert-danger" }} " role="alert">
-       
-        <h1>{{ $data['message'] }}</h1>
-        <h2>{{ isset($etat)?$etat:""}}</h2>
-        <p>{{ $data['data']['status'] }}</p>
-        <hr>
-        <p>Montant :{{ $data['data']['amount'] . $data['data']['currency'] }}</p>
-        {{-- <p>Opérateur : {{ isset($operateur)?$operateur:"absent"}}</p> --}}
-        <p>Description :{{ $data['data']['description'] }}</p>
-        <p>Date :{{ $data['data']['payment_date'] }}</p><br>
-        @if ($data['data']['status']=="ACCEPTED")
-        <a href="{{ route('dashboard') }}" class="alert-link">Retour à l'accueil</a>
-        @else
-        <a href="{{ route('abonnement') }}" class="alert-link">Retour </a>
-        @endif
-      
-    </div>
+        <div class="row mt-5">
+
+            <div class="alert {{ $data['data']['status'] == 'ACCEPTED' ? 'alert-success' : 'alert-danger' }} " role="alert">
+
+                <h1>{{ $data['message'] }}</h1>
+                <h2>{{ isset($etat) ? $etat : '' }}</h2>
+                <p>{{ $data['data']['status'] }}</p>
+                <hr>
+                <p>Montant :{{ $data['data']['amount'] . $data['data']['currency'] }}</p>
+                {{-- <p>Opérateur : {{ isset($operateur)?$operateur:"absent"}}</p> --}}
+                <p>Description :{{ $data['data']['description'] }}</p>
+                <p>Date :{{  \Carbon\Carbon::parse($data['data']['payment_date'])->isoFormat('LLL') }}</p><br>
+                @if ($data['data']['status'] == 'ACCEPTED')
+                    <a href="{{ route('mesAbonnements') }}" class="alert-link">Voir la page d'abonnement</a>
+                @else
+                    <a href="{{ route('abonnement') }}" class="alert-link">Retour </a>
+                @endif
+
+            </div>
+        </div>
     </div>
 
     <script src="{{ asset('assets/js/app.js') }}"></script>

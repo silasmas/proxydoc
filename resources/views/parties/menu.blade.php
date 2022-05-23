@@ -101,10 +101,13 @@
                                                 <a href="#">Mon compte</a>
                                                 <ul class="dropdown-menu-col-1">
                                                     <li>
-                                                        <a href="doctors1.html">Mes abonnements</a>
+                                                        <a href="{{ route('mesAbonnements') }}">Mes abonnements</a>
                                                     </li>
                                                     <li>
-                                                        <a href="doctors2.html">Mon profil</a>
+                                                        <a href="{{ route('profil') }}">Mon profil</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ route('historique') }}">Historique d'achats</a>
                                                     </li>
                                                     <li>
                                                         <a class="" href="{{ route('logout') }}" onclick="event.preventDefault();

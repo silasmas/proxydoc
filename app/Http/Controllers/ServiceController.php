@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\service;
+use App\Models\abonnement;
 use App\Http\Requests\StoreserviceRequest;
 use App\Http\Requests\UpdateserviceRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -15,7 +17,25 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+       $mines=abonnement::with('service')
+          ->selectRaw('abonnements.*,abonnement_users.*')
+          ->join('abonnement_users','abonnement_users.abonnement_id','abonnements.id')
+        //   ->join('service_abonnements','service_abonnements.abonnement_id','abonnements.id')
+        //  ->join('services','services.id','service_abonnements.service_id')
+        //   ->join('actes','actes.id','acte_services.acte_id')
+          ->where([["abonnement_users.user_id",Auth::user()->id],["abonnement_users.etat","Payer"]])
+        //   ->where([["abonnement_users.user_id",Auth::user()->id],["abonnement_users.etat","Payer"]])
+          ->get();
+    //    dd($mines);
+        return view("pages.mesAbonnements",compact("mines"));
+    }
+    public function profil()
+    {
+        
+    }
+    public function historique()
+    {
+        
     }
 
     /**

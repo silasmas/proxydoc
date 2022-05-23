@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbonnementController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +39,14 @@ Route::post('/notify', [AbonnementController::class,'notify'])->name('notify');
 Route::get('contact', function () {
     return view('pages.contact');
 })->name('contact');
+Route::middleware(['auth'])->group( function (){
+    Route::get('/dashboard', function () {
+        return view('pages/home');
+    })->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('pages/home');
-})->middleware(['auth'])->name('dashboard');
+    Route::get('/mesAbonnements',[ServiceController::class,'index'])->name('mesAbonnements');
+    Route::get('/profil',[ServiceController::class,'profil'])->name('profil');
+    Route::get('/historique',[ServiceController::class,'historique'])->name('historique');
+});
 
 require __DIR__.'/auth.php';
