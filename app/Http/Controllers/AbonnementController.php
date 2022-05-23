@@ -93,12 +93,12 @@ class AbonnementController extends Controller
     public function notify(Request $request)
     {
 
-        $retour = abonnementUser::where("transaction_id", $request->transaction_id)->first();
-        $paiement = paiement::where("transaction_id", $request->transaction_id)->first();
+        $retour = abonnementUser::where("transaction_id", $request->cpm_trans_id)->first();
+        $paiement = paiement::where("transaction_id", $request->cpm_trans_id)->first();
 
         if ($retour) {
 
-            $response_body = self::verifyStatus($request->transaction_id);
+            $response_body = self::verifyStatus($request->cpm_trans_id);
             // dd($response_body);
             if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
                 $delait = self::delait($retour->abonnement_id);
@@ -112,7 +112,7 @@ class AbonnementController extends Controller
                 $paiement->message = $response_body['message'];
                 $paiement->reference = $response_body['data']['status'];
                 $paiement->save();
-                $compte = self::activeCompte($request->transaction_id);
+                $compte = self::activeCompte($request->cpm_trans_id);
                 return dd($response_body['data']['status']);
             } else {
                 $retour->etat =  $response_body['data']['status'];
@@ -146,9 +146,9 @@ class AbonnementController extends Controller
                 $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
             } else {
-                $paiement->moyenPaiement = $response_body['data']['payment_method'];
-                $paiement->message = $response_body['message'];
-                $paiement->save();
+                // $paiement->moyenPaiement = $response_body['data']['payment_method'];
+                // $paiement->message = $response_body['message'];
+                // $paiement->save();
                 $data = $response_body;
                 $login = self::verifyLogin($request->transaction_id);
                 return view('pages.notify', compact('data'));
