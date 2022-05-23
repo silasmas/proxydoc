@@ -26,7 +26,7 @@ class AbonnementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {    
+    {
         // $rep=self::verifyStatus("1.QaaS50jq1P");
         // dd($rep);   
         return view('pages.abonnement');
@@ -63,10 +63,10 @@ class AbonnementController extends Controller
     public function activeCompte($id)
     {
         $verify = explode('.', $id);
-                $i = $verify[0];
-                $u = User::where("id", $i)->first();
-                $u->email_verified_at=Carbon::now()->isoFormat("YYYY-MM-DD H:M:S");
-                $u->save();
+        $i = $verify[0];
+        $u = User::where("id", $i)->first();
+        $u->email_verified_at = Carbon::now()->isoFormat("YYYY-MM-DD H:M:S");
+        $u->save();
 
         if ($u) {
             event(new Registered($u));
@@ -93,7 +93,7 @@ class AbonnementController extends Controller
     }
     public function notify(Request $request)
     {
-        
+
         $retour = abonnementUser::where("transaction_id", $request->transaction_id)->first();
         $paiement = paiement::where("transaction_id", $request->transaction_id)->first();
 
@@ -142,7 +142,7 @@ class AbonnementController extends Controller
             $response_body = self::verifyStatus($request->transaction_id);
             // dd($response_body);
             if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
-               
+
                 $data = $response_body;
 
                 $compte = self::activeCompte($request->transaction_id);
@@ -256,50 +256,54 @@ class AbonnementController extends Controller
     }
     public function initPaie($cinetpay_data, $request, $user)
     {
+        $existe = abonnementUser::where([["user_id", $user->id], ["abonnement_id", $request['abonnement_id']], ["etat", "Payer"]])->first();
+        if ($existe) {
+            return back()->with('message', "Vous êtes déjà abonner à ce boucker, pour le verifier allez dans la page MES ABONNEMENTS");
+        } else {
+            $url = 'https://api-checkout.cinetpay.com/v2/payment';
+            $response = Http::asJson()->post($url, $cinetpay_data);
 
-        $url = 'https://api-checkout.cinetpay.com/v2/payment';
-        $response = Http::asJson()->post($url, $cinetpay_data);
+            $response_body = json_decode($response->body(), JSON_THROW_ON_ERROR | true, 512, JSON_THROW_ON_ERROR);
+            if ($response->status() === 200) {
 
-        $response_body = json_decode($response->body(), JSON_THROW_ON_ERROR | true, 512, JSON_THROW_ON_ERROR);
-        if ($response->status() === 200) {
+                $register = abonnementUser::updateOrCreate([
+                    "abonnement_id" => $request['abonnement_id'],
+                    "user_id" => $user->id,
+                ], [
+                    "transaction_id" => $cinetpay_data['transaction_id'],
+                    'etat' => "En attente",
+                ]);
+                $paiementInfo = paiement::updateOrCreate([
+                    "transaction_id" => $request['abonnement_id'],
+                    "user_id" => $user->id,
+                ], [
+                    "transaction_id" => $cinetpay_data['transaction_id'],
+                    "description" => "Paiement Abonnement",
+                    "token" => $response_body["data"]["payment_token"],
+                    'customer_address' => $request["customer_address"],
+                    'customer_city' => $request["customer_city"],
+                    'operateur' => $request["channels"],
+                    'customer_country' => $request["customer_country"],
+                    'customer_state' => $request["customer_state"],
+                    'customer_zip_code' => $request["customer_zip_code"],
+                ]);
 
-            $register = abonnementUser::updateOrCreate([
-                "abonnement_id" => $request['abonnement_id'],
-                "user_id" => $user->id,
-            ], [
-                "transaction_id" => $cinetpay_data['transaction_id'],
-                'etat' => "En attente",
-            ]);
-            $paiementInfo = paiement::updateOrCreate([
-                "transaction_id" => $request['abonnement_id'],
-                "user_id" => $user->id,
-            ], [
-                "transaction_id" => $cinetpay_data['transaction_id'],
-                "description" => "Paiement Abonnement",
-                "token" => $response_body["data"]["payment_token"],
-                'customer_address' => $request["customer_address"],
-                'customer_city' => $request["customer_city"],
-                'operateur' => $request["channels"],
-                'customer_country' => $request["customer_country"],
-                'customer_state' => $request["customer_state"],
-                'customer_zip_code' => $request["customer_zip_code"],
-            ]);
-
-            if ($register && $paiementInfo) {
-                if ((int)$response_body["code"] === 201) {
-                    $payment_link = $response_body["data"]["payment_url"];
-                    return  Redirect::to($payment_link);
+                if ($register && $paiementInfo) {
+                    if ((int)$response_body["code"] === 201) {
+                        $payment_link = $response_body["data"]["payment_url"];
+                        return  Redirect::to($payment_link);
+                    } else {
+                        return back()->with('message', $response_body['description']);
+                        // return response()->json(['reponse' => false, 'bank' => true, 'msg' => $response_body['description']]);
+                    }
                 } else {
-                    return back()->with('message', $response_body['description']);
-                    // return response()->json(['reponse' => false, 'bank' => true, 'msg' => $response_body['description']]);
+                    return back()->with('message', "Erreur d'enregistrement!");
+                    //return response()->json(['reponse' => false, 'bank' => true, 'msg' => "Erreur d'enregistrement!"]);
                 }
             } else {
-                return back()->with('message', "Erreur d'enregistrement!");
-                //return response()->json(['reponse' => false, 'bank' => true, 'msg' => "Erreur d'enregistrement!"]);
+                return back()->with('message', $response_body['description']);
+                // return response()->json(['reponse' => false, 'bank' => true, 'msg' => $response_body['description']]);
             }
-        } else {
-            return back()->with('message', $response_body['description']);
-            // return response()->json(['reponse' => false, 'bank' => true, 'msg' => $response_body['description']]);
         }
     }
     /**
@@ -315,16 +319,16 @@ class AbonnementController extends Controller
         if (!Auth::guest()) {
             $transaction_id = self::genererTransaction_id(Auth::user()->id);
             $verification = self::verivyInfo_paiement($request);
-            $user=Auth::user();
+            $user = Auth::user();
             if ($verification) {
                 $init = self::initInfo($request, $transaction_id);
 
-               // dd($init);
+                // dd($init);
                 return $ret = self::initPaie($init, $request->toArray(), $user);
             }
         } else {
             $compteExiste = self::verifyCompte($request->email);
-             //dd($compteExiste);
+            //dd($compteExiste);
             if ($compteExiste[0] == true) {
                 if ($compteExiste[1] == true) {
                     return back()->with('message', 'Cet email a déjà un compte merci de vous connecté pour continuer le paiement');
@@ -336,14 +340,13 @@ class AbonnementController extends Controller
                         'email' => ['required', 'string', 'email', 'max:255'],
                         'password' => ['required', 'confirmed', Rules\Password::defaults()],
                     ]);
-                    $user=User::where("email",$request->email)->first();
-                        $transaction_id = self::genererTransaction_id($user->id);
-                        $verification = self::verivyInfo_paiement($request);
-                        if ($verification) {
-                            $init = self::initInfo($request, $transaction_id);
-                            return $ret = self::initPaie($init, $request->toArray(), $user);
-                        }
-                    
+                    $user = User::where("email", $request->email)->first();
+                    $transaction_id = self::genererTransaction_id($user->id);
+                    $verification = self::verivyInfo_paiement($request);
+                    if ($verification) {
+                        $init = self::initInfo($request, $transaction_id);
+                        return $ret = self::initPaie($init, $request->toArray(), $user);
+                    }
                 }
             } else {
                 $request->validate([
@@ -399,11 +402,11 @@ class AbonnementController extends Controller
      */
     public function show($id)
     {
-        
+
         // $abonnement= $abonnement=abonnement::with('service','service.acte')->joinRelationship('service')->where('abonnements.id',$id)->get();
         $a = abonnement::with('service', 'service.acte')->where('abonnements.id', $id)->first();
         $ab = abonnement::with('service')->where('id', $id)->first();
-        $services=$ab->service;
+        $services = $ab->service;
         // dd($abonnement);
         // $delait = self::delait($id);
         // dd($delait[0]->isoFormat("YYYY-MM-DD H:M:S"));
