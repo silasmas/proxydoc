@@ -257,7 +257,7 @@ class AbonnementController extends Controller
     public function initPaie($cinetpay_data, $request, $user)
     {
         $existe = abonnementUser::where([["user_id", $user->id], ["abonnement_id", $request['abonnement_id']], ["etat", "Payer"]])->first();
-        dd($existe);
+        //dd($existe);
         if ($existe) {
             return back()->with('message', "Vous êtes déjà abonner à ce boucker, pour le verifier allez dans la page MES ABONNEMENTS");
         } else {
