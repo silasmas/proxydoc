@@ -95,7 +95,9 @@ class AbonnementController extends Controller
 
         $retour = abonnementUser::where("transaction_id", $request->cpm_trans_id)->first();
         $paiement = paiement::where("transaction_id", $request->cpm_trans_id)->first();
-
+        $reponse=$request->cpm_amount."/".$request->cpm_currency."/".$request->signature."/".$request->cel_phone_num."/".
+        $request->cpm_phone_prefixe."/".$request->cpm_language."/".$request->cpm_version."/".$request->cpm_payment_config."/".$request->cpm_page_action;
+        
         if ($retour) {
 
             $response_body = self::verifyStatus($request->cpm_trans_id);
@@ -103,9 +105,13 @@ class AbonnementController extends Controller
             if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
                 $delait = self::delait($retour->abonnement_id);
                 $retour->etat = 'Payer';
+                $retour->updated_at = $request->cpm_trans_date;
                 $retour->date_debut = $delait[0]->isoFormat("YYYY-MM-DD H:M:S");
                 $retour->date_fin = $delait[1]->isoFormat("YYYY-MM-DD H:M:S");
                 $retour->save();
+                
+                $paiement->updated_at = $request->cpm_trans_date;
+                $paiement->reponse = $reponse;
 
                 $paiement->type = $response_body['code'];
                 $paiement->moyenPaiement = $response_body['data']['payment_method'];
@@ -116,8 +122,11 @@ class AbonnementController extends Controller
                 return dd($response_body['data']['status']);
             } else {
                 $retour->etat =  $response_body['data']['status'];
+                $retour->updated_at = $request->cpm_trans_date;
                 $retour->save();
 
+                $paiement->updated_at = $request->cpm_trans_date;
+                $paiement->reponse = $reponse;
                 $paiement->moyenPaiement = $response_body['data']['payment_method'];
                 $paiement->message = $response_body['message'];
                 $paiement->type = $response_body['code'];
@@ -257,7 +266,7 @@ class AbonnementController extends Controller
         $existe = abonnementUser::where([["user_id", $user->id], ["abonnement_id", $request['abonnement_id']], ["etat", "Payer"]])->first();
         //dd($existe);
         if ($existe) {
-            return back()->with('message', "Vous êtes déjà abonner à ce boucker, pour le verifier allez dans la page MES ABONNEMENTS");
+            return back()->with('message', "Vous êtes déjà abonner à ce boucker, pour le verifier allez dans la page MON COMPTE->MES ABONNEMENTS");
         } else {
             $url = 'https://api-checkout.cinetpay.com/v2/payment';
             $response = Http::asJson()->post($url, $cinetpay_data);
