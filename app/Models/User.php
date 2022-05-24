@@ -24,9 +24,6 @@ class User extends Authenticatable
     public function abonnement(){
         return $this->belongsToMany(abonnement::class,'abonnement_users')->withPivot('etat','date_debut','date_fin');
     }
-    public function servise(){
-        return $this->belongsToMany(service::class)->withPivot("transaction_id","etat");
-    }
     /**
      * The attributes that should be hidden for serialization.
      *
