@@ -20,15 +20,6 @@ class ServiceController extends Controller
     {
          $n=User::with('abonnement','abonnement.service')->where("id",Auth::user()->id)->first();
        $m=$n->abonnement;
-    //    $mines=abonnement::with("service")->selectRaw('abonnements.*,abonnement_users.*')
-    //        ->join('abonnement_users','abonnement_users.abonnement_id',"abonnements.id")
-    //     //   ->join('abonnements','abonnements.id','abonnement_users.abonnement_id')
-    //       ->join('service_abonnements','service_abonnements.abonnement_id','abonnements.id')
-    //         ->join('services','services.id','service_abonnements.service_id')
-    //     //   ->join('actes','actes.id','acte_services.acte_id')
-    //       ->where([["abonnement_users.user_id",Auth::user()->id],["abonnement_users.etat","Payer"]])
-    //     //   ->where([["abonnement_users.user_id",Auth::user()->id],["abonnement_users.etat","Payer"]])
-    //       ->get();
     $mines = $m->filter(function ($value, $key) {
         return $value->pivot->etat == "Payer";
     });
