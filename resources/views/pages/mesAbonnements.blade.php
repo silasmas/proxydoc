@@ -21,8 +21,8 @@
             <div class="col-xl-3 col-lg-6 col-md-6 col-12">
                 <div class="pricing-box-layout1">
                     <h3>{{ $a->nom }}</h3>
-                    <small><b>Date debut :</b>{{ $a->pivot->date_debut }}</small><br>
-                    <small><b>Date fin :</b>{{ $a->pivot->date_fin }}</small><br>
+                    <small><b>Date debut :</b>{{ \Carbon\Carbon::parse($a->pivot->date_debut )->isoFormat('LL')  }}</small><br>
+                    <small><b>Date fin :</b>{{ \Carbon\Carbon::parse($a->pivot->date_fin )->isoFormat('LL')  }}</small><br>
                     <div class="pricing title-bar-primary6">
                         {{-- <span class="currency">{{ $a->monaie=="USD"?"$":"FC" }}</span> --}}
                         <span class="amount">{{ $a->duree }}</span>
