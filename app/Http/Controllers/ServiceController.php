@@ -17,16 +17,17 @@ class ServiceController extends Controller
      */
     public function index()
     {
-       $mines=abonnement::with('service')
-          ->selectRaw('abonnements.*,abonnement_users.*')
+       $mines=abonnement::with('service',"user")
+          ->selectRaw('abonnements.*,abonnement_users.*,services.nom as sn,services.description as ds')
           ->join('abonnement_users','abonnement_users.abonnement_id','abonnements.id')
-        //   ->join('service_abonnements','service_abonnements.abonnement_id','abonnements.id')
-        //  ->join('services','services.id','service_abonnements.service_id')
+          ->join('service_abonnements','service_abonnements.abonnement_id','abonnements.id')
+          ->join('services','services.id','service_abonnements.service_id')
+        //   ->join('abonnements','abonnements.id','service_abonnements.abonnement_id')
         //   ->join('actes','actes.id','acte_services.acte_id')
           ->where([["abonnement_users.user_id",Auth::user()->id],["abonnement_users.etat","Payer"]])
         //   ->where([["abonnement_users.user_id",Auth::user()->id],["abonnement_users.etat","Payer"]])
           ->get();
-    //    dd($mines);
+       // dd($mines);
         return view("pages.mesAbonnements",compact("mines"));
     }
     public function profil()

@@ -30,12 +30,8 @@
                     </div>
                     <div class="box-content">
                         <ul>
-                            @forelse ($a->service as $s)
                                 
-                            <li>{{ $s->nom }}</li>
-                            @empty
-                                
-                            @endforelse
+                            <li>{{ $a->ns }}</li>
                             
                         </ul>
                         <a href="{{ route('createAbonnement',['id'=>$a->id])}}" class="item-btn">Voir en detail</a>
