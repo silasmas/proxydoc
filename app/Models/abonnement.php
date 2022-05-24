@@ -15,7 +15,7 @@ class abonnement extends Model
     protected $guarded=[];
     
     public function user(){
-        return $this->belongsToMany(User::class,'abonnement_users');
+        return $this->belongsToMany(User::class,'abonnement_users')->withPivot('etat','date_debut','date_fin');
     }
     public function service(){
         return $this->belongsToMany(service::class,"service_abonnements");

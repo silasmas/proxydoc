@@ -22,7 +22,7 @@ class User extends Authenticatable
      */
     protected $guarded=[];
     public function abonnement(){
-        return $this->belongsToMany(abonnement::class,'abonnement_users');
+        return $this->belongsToMany(abonnement::class,'abonnement_users')->withPivot('etat','date_debut','date_fin');
     }
     public function servise(){
         return $this->belongsToMany(service::class)->withPivot("transaction_id","etat");

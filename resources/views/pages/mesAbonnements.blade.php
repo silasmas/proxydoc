@@ -31,7 +31,7 @@
                     <div class="box-content">
                         <ul>
                                 
-                            <li>{{ $a->ns }}</li>
+                            <li>{{ $a->nom }}</li>
                             
                         </ul>
                         <a href="{{ route('createAbonnement',['id'=>$a->id])}}" class="item-btn">Voir en detail</a>
