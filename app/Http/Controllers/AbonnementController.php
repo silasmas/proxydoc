@@ -381,7 +381,8 @@ class AbonnementController extends Controller
     }
     public function initInfo($request, $transaction_id)
     {
-
+        $description=abonnement::find($request->abonnement_id);
+       // dd($description);
         if ($request->channels == "MOBILE_MONEY") {
             $cinetpay_data =  [
                 "amount" => $request->prix,
@@ -389,7 +390,7 @@ class AbonnementController extends Controller
                 "apikey" => env("CINETPAY_APIKEY"),
                 "site_id" => env("CINETPAY_SERVICD_ID"),
                 "transaction_id" => $transaction_id,
-                "description" => "Achat abonnement",
+                "description" => "Achat abonnement ".$description->nom,
                 "return_url" => env("RETURN_URL"),
                 "notify_url" => env("NOTIFY_URL"),
                 'channels' => $request["channels"],
@@ -402,7 +403,7 @@ class AbonnementController extends Controller
                 "apikey" => env("CINETPAY_APIKEY"),
                 "site_id" => env("CINETPAY_SERVICD_ID"),
                 "transaction_id" => $transaction_id,
-                "description" => "Achat abonnement",
+                "description" => "Achat abonnement ".$description->nom,
                 "return_url" => env("RETURN_URL"),
                 "notify_url" => env("NOTIFY_URL"),
                 'channels' => $request["channels"],
@@ -444,7 +445,7 @@ class AbonnementController extends Controller
                     "user_id" => $user->id,
                 ], [
                     "transaction_id" => $cinetpay_data['transaction_id'],
-                    "description" => "Paiement Abonnement",
+                    "description" => $cinetpay_data['description'],
                     "token" => $response_body["data"]["payment_token"],
                     'customer_address' => $request["customer_address"],
                     'customer_city' => $request["customer_city"],
