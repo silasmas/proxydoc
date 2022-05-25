@@ -36,6 +36,8 @@ Route::get('/retour',[AbonnementController::class,'index'])->name('retour');
 Route::post('/retour', [AbonnementController::class,'retour'])->name('retour');
 Route::post('/notify', [AbonnementController::class,'notify'])->name('notify');
 
+Route::get('/notify', [AbonnementController::class,'note'])->name('notify');
+
 Route::get('contact', function () {
     return view('pages.contact');
 })->name('contact');

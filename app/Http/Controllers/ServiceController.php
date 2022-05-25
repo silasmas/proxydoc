@@ -28,11 +28,11 @@ class ServiceController extends Controller
     }
     public function profil()
     {
-        
+        return view("pages.profil");
     }
     public function historique()
     {
-        
+        return view("pages.historique");
     }
 
     /**
