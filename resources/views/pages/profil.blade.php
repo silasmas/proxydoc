@@ -29,7 +29,7 @@
                                 <div class="row gutters-15">
                                     <div class="col-md-6 form-group">
                                         <input type="text" placeholder="Votre Nom*" class="form-control" name="name"
-                                            id="name" value="{{ Auth::user()->nom }}" data-error="Champ obligatoire"
+                                            id="name" value="{{ Auth::user()->name }}" data-error="Champ obligatoire"
                                             data-parsley-minlength="3" data-parsley-trigger="change" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -129,7 +129,7 @@
                     <div class="widget widget-about-team">
                         <img src="{{ asset('assets/img/slider/profil1.jpg') }}" class="img-fluid" alt="team">
                         <div class="item-content">
-                            <h3 class="item-title">{{ Auth::user()->prenom . ' ' . Auth::user()->nom }}</h3>
+                            <h3 class="item-title">{{ Auth::user()->prenom . ' ' . Auth::user()->name }}</h3>
                             <p class="item-ctg">{{ Auth::user()->sexe }}</p>
                             <span class="item-designation">{{ Auth::user()->pays }}</span>
                         </div>
