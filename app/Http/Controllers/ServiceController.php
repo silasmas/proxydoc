@@ -18,12 +18,11 @@ class ServiceController extends Controller
      */
     public function index()
     {
-         $n=User::with('abonnement','abonnement.service')->where("id",Auth::user()->id)->first();
-       $m=$n->abonnement;
+        $m=Auth::user()->abonnement;
     $mines = $m->filter(function ($value, $key) {
         return $value->pivot->etat == "Payer";
     });
-         //dd($mines);
+        // dd($mines);
         return view("pages.mesAbonnements",compact("mines"));
     }
     public function profil()

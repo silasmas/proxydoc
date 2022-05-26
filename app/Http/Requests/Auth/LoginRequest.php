@@ -55,7 +55,7 @@ class LoginRequest extends FormRequest
         //     ]);
         // }
 
-        $user = User::where('email', $this->email)
+        $user = User::with('abonnement','abonnement.service')->where('email', $this->email)
             ->orWhere('telephone', $this->email)
             ->first();
 
@@ -66,7 +66,6 @@ class LoginRequest extends FormRequest
                 'login' => __('auth.failed'),
             ]);
         }
-
         Auth::login($user, $this->boolean('remember'));
 
         RateLimiter::clear($this->throttleKey());
