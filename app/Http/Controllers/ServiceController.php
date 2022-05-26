@@ -27,7 +27,11 @@ class ServiceController extends Controller
     }
     public function profil()
     {
-        return view("pages.profil");
+        $m=Auth::user()->abonnement;
+        $mines = $m->filter(function ($value, $key) {
+            return $value->pivot->etat == "Payer";
+        });
+        return view("pages.profil",compact("mines"));
     }
     public function historique()
     {
