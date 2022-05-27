@@ -74,7 +74,7 @@
                                             </td>
                                         </tr>                                            
                                         @empty
-                                            
+                                            <p class=" text-center text-danger">Aucun historique</p>
                                         @endforelse
                                         
                                     </tbody>
