@@ -18,7 +18,7 @@
                 <div class=" col-lg-12 col-md-12">
                     <div class="team-detail-box-layout1">
                         <div class="single-item">
-                            <div class="">
+                            <div class="table-responsive">
                                 <h3 class="section-title title-bar-primary2">Historiques d'achats :</h3>
                                 <table class="table table-striped table-bordered table-hover" style="width:100%">
                                     <thead>
