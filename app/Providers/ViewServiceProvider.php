@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use App\Models\service;
- 
+use App\Models\serviceAbonnement;
+
 class ViewServiceProvider extends ServiceProvider
 {
     /**
@@ -29,27 +30,34 @@ class ViewServiceProvider extends ServiceProvider
     {
     
         View::composer('pages.*', function ($view) {
+            if(!Auth::guest()){
+                $m = Auth::user()->abonnement;
+                $mines = $m->filter(function ($value, $key) {
+                    return $value->pivot->etat == "Payer";
+                });
+                //$service=abonnement::with("service")->get();
+            //    $ser= $s->each(function($role)
+            //    {
+            //        return $role->abonnement->id=="1";
+            //    });
+                //$r=$service->merge($mines);
+                // dd($mines);
+                $view->with('mesService',$mines);
+            }
            $service=service::all();
         //   
           
            $acte=service::with('acte')->get();
            $abonnement=abonnement::with('service')->get();
 
-// dd($abonnement->push($acte));
+
 
            $avocatBy = $abonnement->groupBy(function ($member) {
                    return $member;
                })->all();
 
-        //    $abonnement=abonnement::with('service')
-        //    ->selectRaw('services.*,abonnements.*')
-        //    ->join('service_abonnements','service_abonnements.abonnement_id','abonnements.id')
-        //    ->join('services','services.id','service_abonnements.service_id')
-        //    ->join('acte_services','acte_services.service_id','services.id')
-        //    ->join('actes','actes.id','acte_services.acte_id')
-        //    ->get();
             $c=collect($avocatBy);
-             //  dd($avocatBy);
+            
            $view->with('abonnement',$avocatBy);
            $view->with('service',$service);
 

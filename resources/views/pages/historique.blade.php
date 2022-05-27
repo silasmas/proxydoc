@@ -20,6 +20,9 @@
                         <div class="single-item">
                             <div class="table-responsive">
                                 <h3 class="section-title title-bar-primary2">Historiques d'achats :</h3>
+                                <p class="hide-on-desktop-menu" style="margin-bottom: 20px">
+faites glisser le tableau pour voir la suite
+                                </p>
                                 <table class="table table-striped table-bordered table-hover" style="width:100%">
                                     <thead>
                                         <tr>

@@ -59,7 +59,7 @@
                             <h2 class="title title-bar-primary2">Modifier vos informations :</h2>
                             <form action="" id="profil" onsubmit="editProfil(this)" data-parsley-validate>
                                @csrf
-                                <div class="row gutters-15">
+                                <div class="row">
                                     <div class="col-md-6 form-group">
                                         <input type="text" placeholder="Votre Nom*" class="form-control" name="name"
                                             id="name" value="{{ Auth::user()->name }}" data-error="Champ obligatoire"
@@ -86,7 +86,7 @@
                                             data-parsley-trigger="change">
                                         <div class="help-block with-errors"></div>
                                     </div>
-                                    <div class="col-6 form-group">
+                                    <div class="col-lg-6 form-group">
                                         <select class="select2" name="sexe" data-error="Champ obligatoire" required>
                                             <option value="">Selectionnez un genre *</option>
                                             <option value="HOMME">HOMME</option>
@@ -108,7 +108,7 @@
                                             data-parsley-trigger="change">
                                         <div class="help-block with-errors"></div>
                                     </div>
-                                    <div class="col-6 form-group">
+                                    <div class="col-lg-6 form-group">
                                         @include('parties.listepays')
                                     </div>
 

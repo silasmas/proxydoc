@@ -33,9 +33,10 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
 <script async src='https://stackwhats.com/pixel/2fa93742e74205573241c74f75d46f'></script>
-@if (!Auth::guest())
-    <!--Start of Tawk.to Script-->
- <script type="text/javascript">
+@auth
+@if ($mesService->pluck('nom')->contains('standars')||$mesService->pluck('nom')->contains('premium')||$mesService->pluck('nom')->contains('business'))
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -48,6 +49,9 @@
     </script>
     <!--End of Tawk.to Script--> 
 @endif
+    
+@endauth
+
 
 </body>
 
