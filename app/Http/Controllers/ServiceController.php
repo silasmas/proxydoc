@@ -42,7 +42,7 @@ class ServiceController extends Controller
     }
     public function historique()
     {
-        $historique=paiement::where('user_id',Auth::user()->id)->simplePaginate(5);
+        $historique=paiement::where('user_id',Auth::user()->id)->simplePaginate(10);
       //  dd($historique);
         return view("pages.historique",compact("historique"));
     }
