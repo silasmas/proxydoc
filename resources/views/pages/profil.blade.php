@@ -13,8 +13,30 @@
     <!-- Doctors Detail Start Here -->
     <section class="appointment-wrap-layout1 bg-light-accent100">
         <div class="container">
-            <div class="row gutters-15">
-                <div class="order-xl-2 order-lg-2 col-xl-9 col-lg-8 col-md-12 col-12">
+            <div class="row gutters-1">
+                <div class="order-xl-1 order-lg-1 sidebar-widget-area sidebar-break-md col-xl-4 col-lg-5 col-md-12 col-12">
+                    <div class="widget widget-about-team">
+                        <img src="{{ asset('assets/img/slider/profil1.jpg') }}" class="img-fluid" alt="team">
+                        <div class="item-content">
+                            <h3 class="item-title">{{ Auth::user()->prenom . ' ' . Auth::user()->name }}</h3>
+                            <p class="item-ctg">Genre : {{ Auth::user()->sexe }}</p>
+                            <span class="item-designation">Pays : {{ Auth::user()->pays }}</span>
+                        </div>
+                    </div>
+                    <div class="widget widget-team-contact">
+                        <h3 class="section-title title-bar-primary2">Infos personnelles</h3>
+                        <ul>
+                            <li>Phone : <span>{{ Auth::user()->telephone }}</span></li>
+                            <li>E-mail : <span>{{ Auth::user()->email }}</span></li>
+                            <li>Date naiss. : <span>{{ Auth::user()->datenaissance }}</span></li>
+                            <li>Ville : <span>{{ Auth::user()->ville }}</span></li>
+                            <li>Adresse : <span>{{ Auth::user()->adresse }}</span></li>
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="order-xl-2 order-lg-2 col-xl-8 col-lg-7 col-md-12 col-12">
                     <p class="text-danger">
                         @if (session()->has('message'))
                             {{ session()->get('message') }}
@@ -138,28 +160,7 @@
                     </div>
 
                 </div>
-                <div class="order-xl-1 order-lg-1 sidebar-widget-area sidebar-break-md col-xl-3 col-lg-4 col-md-12 col-12">
-                    <div class="widget widget-about-team">
-                        <img src="{{ asset('assets/img/slider/profil1.jpg') }}" class="img-fluid" alt="team">
-                        <div class="item-content">
-                            <h3 class="item-title">{{ Auth::user()->prenom . ' ' . Auth::user()->name }}</h3>
-                            <p class="item-ctg">Genre : {{ Auth::user()->sexe }}</p>
-                            <span class="item-designation">Pays : {{ Auth::user()->pays }}</span>
-                        </div>
-                    </div>
-                    <div class="widget widget-team-contact">
-                        <h3 class="section-title title-bar-primary2">Infos personnelles</h3>
-                        <ul>
-                            <li>Phone : <span>{{ Auth::user()->telephone }}</span></li>
-                            <li>E-mail : <span>{{ Auth::user()->email }}</span></li>
-                            <li>Date naiss. : <span>{{ Auth::user()->datenaissance }}</span></li>
-                            <li>Ville : <span>{{ Auth::user()->ville }}</span></li>
-                            <li>Adresse : <span>{{ Auth::user()->adresse }}</span></li>
-
-                        </ul>
-                    </div>
-
-                </div>
+               
             </div>
         </div>
         </div>
