@@ -42,7 +42,7 @@
                                             <td>MBBS, M.D</td>
                                             <td>
                                                 <label  class=" @switch($h->reference)
-                                                    @case("ACCEPETED")
+                                                    @case("ACCEPTED")
                                                     {{ "text-success"  }}
                                                         @break
                                                     @case("REFUSED")
@@ -55,7 +55,7 @@
                                                 @endswitch">
 
                                                     @switch($h->reference)
-                                                        @case("ACCEPETED")
+                                                        @case("ACCEPTED")
                                                        {{ "REUSSI" }}
                                                             @break
                                                         @case("REFUSED")
