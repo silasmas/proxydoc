@@ -27,7 +27,7 @@
                         <h3 class="section-title title-bar-primary2">Infos personnelles</h3>
                         <ul>
                             <li>Phone : <span>{{ Auth::user()->telephone }}</span></li>
-                            <li>E-mail : <span>{{ Auth::user()->email }}</span></li>
+                            <li>E-mail :<span>{{ Auth::user()->email }}</span></li>
                             <li>Date naiss. : <span>{{ Auth::user()->datenaissance }}</span></li>
                             <li>Ville : <span>{{ Auth::user()->ville }}</span></li>
                             <li>Adresse : <span>{{ Auth::user()->adresse }}</span></li>
