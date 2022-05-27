@@ -1,5 +1,5 @@
 
-<select name="pays" class="select2"  data-error="Champ obligatoire" >
+<select name="pays" class="select2"  data-error="Champ obligatoire" required>
     <option value="" selected>Selectionnez votre pays </option>
     <option value="Afghanistan">Afghanistan </option>
     <option value="Afrique_Centrale">Afrique_Centrale </option>

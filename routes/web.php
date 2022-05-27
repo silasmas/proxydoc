@@ -48,7 +48,10 @@ Route::middleware(['auth'])->group( function (){
 
     Route::get('/mesAbonnements',[ServiceController::class,'index'])->name('mesAbonnements');
     Route::get('/profil',[ServiceController::class,'profil'])->name('profil');
-    Route::get('/historique',[ServiceController::class,'historique'])->name('historique');
+    Route::get('/historique',[ServiceController::class,'historique'])->name('historique');  
+   
+    Route::post('/editprofil', [ServiceController::class,'editprofil'])->name('editprofil');
+    Route::post('/editPassword', [ServiceController::class,'editPassword'])->name('editPassword');
 });
 
 require __DIR__.'/auth.php';

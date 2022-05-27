@@ -56,7 +56,7 @@ class LoginRequest extends FormRequest
         // }
 
         $user = User::with('abonnement','abonnement.service')->where('email', $this->email)
-            ->orWhere('telephone', $this->email)
+            ->orWhere('telephone', $this->telephone)
             ->first();
 
         if (!$user || !Hash::check($this->password, $user->password)) {

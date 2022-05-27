@@ -15,6 +15,16 @@
         <div class="container">
             <div class="row gutters-15">
                 <div class="order-xl-2 order-lg-2 col-xl-9 col-lg-8 col-md-12 col-12">
+                    <p class="text-danger">
+                        @if (session()->has('message'))
+                            {{ session()->get('message') }}
+                        @endif
+                    </p>
+                    @foreach ($errors->all() as $err)
+                        <p class="text-danger">
+                            {{ $err }}
+                        </p>
+                    @endforeach
                     <div class="appointment-box-layout1">
                         <div class="single-item">
                             <h2 class="title title-bar-primary2">Changer photo de profil :</h2>
@@ -25,7 +35,8 @@
                         </div>
                         <div class="single-item">
                             <h2 class="title title-bar-primary2">Modifier vos informations :</h2>
-                            <form action="" data-parsley-validate>
+                            <form action="" id="profil" onsubmit="editProfil(this)" data-parsley-validate>
+                               @csrf
                                 <div class="row gutters-15">
                                     <div class="col-md-6 form-group">
                                         <input type="text" placeholder="Votre Nom*" class="form-control" name="name"
@@ -41,13 +52,13 @@
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <input type="email" placeholder="E-mail *" class="form-control" name="email"
+                                        <input disabled type="email" placeholder="E-mail *" class="form-control" name="email"
                                             id="form-email" value="{{ Auth::user()->email }}"
                                             data-error="E-mail field is required" data-parsley-trigger="change" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <input type="text" placeholder="Téléphone *" class="form-control" name="telephone"
+                                        <input disabled type="text" placeholder="Téléphone *" class="form-control" name="telephone"
                                             id="telephone" data-error="Champ obligatoire" required
                                             value="{{ Auth::user()->telephone }}" data-parsley-minlength="3"
                                             data-parsley-trigger="change">
@@ -64,7 +75,8 @@
                                     <div class="col-sm-6 form-group">
                                         <i class="far fa-calendar-alt"></i>
                                         <input type="text" class="form-control rt-date" placeholder="Date de naissance *"
-                                             id="form-date" name="datenaissance" value="{{ Auth::user()->datenaissance }}" data-error="Subject field is required" required />
+                                            id="form-date" name="datenaissance" value="{{ Auth::user()->datenaissance }}"
+                                            data-error="Subject field is required" required />
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="col-md-6 form-group">
@@ -75,18 +87,18 @@
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="col-6 form-group">
-                                        @include("parties.listepays")
+                                        @include('parties.listepays')
                                     </div>
-                                    
+
                                     <div class="col-12 form-group">
                                         <textarea placeholder="Votre adresse" class="textarea form-control carte2" name="customer_address" id="customer_address"
-                                            rows="5" cols="20">
+                                            rows="5" cols="20" required>
                                             {{ Auth::user()->adresse }}
                                         </textarea>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="col-12 form-group text-center">
-                                        <button class="item-btn">Modifier</button>
+                                        <button type="submit" class="item-btn">Modifier</button>
                                     </div>
                                 </div>
                             </form>
@@ -94,7 +106,8 @@
                         <div class="single-item">
                             <h2 class="title title-bar-primary2">Modifier le mot de passe :</h2>
 
-                            <form action="" data-parsley-validate>
+                            <form action="" onsubmit="editPassword(this)" data-parsley-validate>
+                                @csrf
                                 <div class="row gutters-15">
                                     <div class="col-md-12 form-group">
                                         <input type="password" placeholder="Ancien Mot de passe *" class="form-control"
@@ -104,14 +117,14 @@
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <input type="password" placeholder="Nouveau Mot de passe *" class="form-control"
-                                            data-parsley-minlength="5" data-parsley-trigger="change" name="newpassword"
-                                            id="newpassword" data-error="Champ obligatoire" required>
+                                            data-parsley-minlength="5" data-parsley-trigger="change" name="password"
+                                            id="password" data-error="Champ obligatoire" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <input type="password" placeholder="Repetez nouveau mot de passe"
                                             class="form-control" name="password_confirmation" id="password_confirmation"
-                                            data-parsley-equalto="#newpassword" data-parsley-minlength="5"
+                                            data-parsley-equalto="#password" data-parsley-minlength="5"
                                             data-parsley-trigger="change" data-error="Champ obligatoire" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -130,8 +143,8 @@
                         <img src="{{ asset('assets/img/slider/profil1.jpg') }}" class="img-fluid" alt="team">
                         <div class="item-content">
                             <h3 class="item-title">{{ Auth::user()->prenom . ' ' . Auth::user()->name }}</h3>
-                            <p class="item-ctg">{{ Auth::user()->sexe }}</p>
-                            <span class="item-designation">{{ Auth::user()->pays }}</span>
+                            <p class="item-ctg">Genre : {{ Auth::user()->sexe }}</p>
+                            <span class="item-designation">Pays : {{ Auth::user()->pays }}</span>
                         </div>
                     </div>
                     <div class="widget widget-team-contact">
@@ -159,5 +172,44 @@
     <script src="{{ asset('assets/parsley/js/parsley.js') }}"></script>
     <script src="{{ asset('assets/parsley/i18n/fr.js') }}"></script>
     <script src="{{ asset('js/sweetalert/sweetalert.min.js') }}"></script>
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+        function editProfil(val) {
+            event.preventDefault()
+            edite(val, "../editprofil")
+        }
+        function editPassword(val) {
+            event.preventDefault()
+            edite(val, "../editPassword")
+        }
+
+        function edite(form, url) {
+
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: $(form).serialize(),
+                success: function(data) {
+                    if (!data.reponse) {
+                        swal({
+                            title: data.msg,
+                            icon: 'error'
+                        })
+                    } else {
+                        swal({
+                            title: data.msg,
+                            icon: 'success'
+                        })
+                       actualiser()
+                    }
+
+                },
+            });
+
+        }
+        
+    function actualiser() {
+        location.reload();
+    }
+
+    </script>
 @endsection

@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\service;
 use App\Models\abonnement;
+use App\Rules\PhoneNumber;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use App\Http\Requests\StoreserviceRequest;
 use App\Http\Requests\UpdateserviceRequest;
-
+use App\Models\paiement;
+use Illuminate\Validation\Rules;
 class ServiceController extends Controller
 {
     /**
@@ -18,24 +25,26 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $m=Auth::user()->abonnement;
-    $mines = $m->filter(function ($value, $key) {
-        return $value->pivot->etat == "Payer";
-    });
-        // dd($mines);
-        return view("pages.mesAbonnements",compact("mines"));
-    }
-    public function profil()
-    {
-        $m=Auth::user()->abonnement;
+        $m = Auth::user()->abonnement;
         $mines = $m->filter(function ($value, $key) {
             return $value->pivot->etat == "Payer";
         });
-        return view("pages.profil",compact("mines"));
+        // dd($mines);
+        return view("pages.mesAbonnements", compact("mines"));
+    }
+    public function profil()
+    {
+        $m = Auth::user()->abonnement;
+        $mines = $m->filter(function ($value, $key) {
+            return $value->pivot->etat == "Payer";
+        });
+        return view("pages.profil", compact("mines"));
     }
     public function historique()
     {
-        return view("pages.historique");
+        $historique=paiement::where('user_id',Auth::user()->id)->simplePaginate(5);
+      //  dd($historique);
+        return view("pages.historique",compact("historique"));
     }
 
     /**
@@ -57,6 +66,78 @@ class ServiceController extends Controller
     public function store(StoreserviceRequest $request)
     {
         //
+    }
+    public function editprofil(Request $request)
+    {
+        $valid = Validator::make($request->all(),[
+            'name' => ['required', 'string', 'max:255'],
+            'prenom' => ['required', 'string', 'max:255'],
+            'sexe' => ['required', 'string', 'max:255'],
+            'ville' => ['required', 'string', 'max:255'],
+            'pays' => ['required', 'string', 'max:255'],
+            'datenaissance' => ['required', 'string', 'max:255'],
+            'customer_address' => ['required', 'string', 'max:255'],
+            // 'telephone' => ['required', new PhoneNumber,'unique:users'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+       // dd($valid);
+        if (!$valid->fails()) {
+            $u = User::where("id", Auth::user()->id)->first();
+            $u->name = $request->name;
+            $u->prenom = $request->prenom;
+            $u->sexe = $request->sexe;
+            $u->ville = $request->ville;
+            $u->datenaissance = $request->datenaissance;
+            // $u->phone = $request->phone;
+            $u->pays = $request->pays;
+            $u->adresse = $request->customer_address;
+            // $u->email= $request->email;
+
+            $u->save();
+            if ($u) {
+                $user = User::with('abonnement','abonnement.service')->where('email', $u->email)
+                ->orWhere('telephone', $u->telephone)
+                ->first();
+                event(new Registered($user));
+
+                // Auth::login($u);
+                return response()->json(['reponse' => true, 'msg' =>"Profil mis à jour avec succès"]);
+
+                // return back()->with('message', "Profil mis à jour avec succès");
+            } else {
+                return response()->json(['reponse' => false, 'msg' =>"Erreur de mis à jour du profil"]);
+
+                // return back()->with('message', "Erreur");
+            }
+        } else {
+            return response()->json(['reponse' => false,'type'=>"velidate", 'msg' =>$valid->errors()->all()]);
+        }
+    }
+    public function editPassword(Request $request)
+    {
+        $valid = Validator::make($request->all(),[
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'oldpassword' => ['required', Rules\Password::defaults()],
+        ]);
+       // dd($valid);
+        if (!$valid->fails()) {
+            $u = User::where("id", Auth::user()->id)->first();
+            if (Hash::check($request->oldpassword, $u->password)) {
+                $u->password = Hash::make($request->password);           
+            $u->save();
+            if ($u) {
+                return response()->json(['reponse' => true, 'msg' =>"Mot de passe mis à jour avec succès"]);
+
+            } else {
+                return response()->json(['reponse' => false, 'msg' =>"Erreur de mis à jour du mot de passe"]);
+            }
+            } else {
+                return response()->json(['reponse' => false, 'msg' =>"Ancien mot de passe incorrect"]);
+            }
+           
+        } else {
+            return response()->json(['reponse' => false,'type'=>"velidate", 'msg' =>$valid->errors()->all()]);
+        }
     }
 
     /**
