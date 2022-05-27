@@ -40,9 +40,37 @@
                                             <td>{{ $h->description }}</td>
                                             <td>{{ $h->operateur }}</td>
                                             <td>MBBS, M.D</td>
-                                            <td>{{ $h->reference }}</td>
+                                            <td>
+                                                <label  class=" @switch($h->reference)
+                                                    @case("ACCEPETED")
+                                                    {{ "text-success"  }}
+                                                        @break
+                                                    @case("REFUSED")
+                                                    {{ "text-danger" }}
+                                                        @break
+                                                    @case("")
+                                                        {{ "text-warning" }}
+                                                        @break
+                                                
+                                                @endswitch">
+
+                                                    @switch($h->reference)
+                                                        @case("ACCEPETED")
+                                                       {{ "REUSSI" }}
+                                                            @break
+                                                        @case("REFUSED")
+                                                            {{ "ECHEC" }}
+                                                            @break
+                                                        @case("")
+                                                            {{ "En attente" }}
+                                                            @break
+                                                    
+                                                    @endswitch
+                                                    {{-- {{ $h->reference=="ACCEPETED"?:"" }} --}}
+                                                </label>
+                                            </td>
                                             <td class="schedule-btn">
-                                                <a href="#" class="item-btn">Detail</a>
+                                                <a href="#" class="btn btn-primary">Detail</a>
                                             </td>
                                         </tr>                                            
                                         @empty
