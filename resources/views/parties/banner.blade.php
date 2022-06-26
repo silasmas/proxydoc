@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="breadcrumbs-area">
                     <h1>@yield('title')</h1>
-                    <ul>
+                    <ul> 
                         <li>
                             <a href="{{ route('home') }}">Accueil</a>
                         </li>

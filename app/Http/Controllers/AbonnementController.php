@@ -14,9 +14,11 @@ use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UpdateabonnementRequest;
+use App\Mail\notifyAbonnement;
 
 class AbonnementController extends Controller
 {
@@ -80,7 +82,7 @@ class AbonnementController extends Controller
     {
         $verify = explode('.', $id);
         $id = $verify[0];
-        $u = User::where([["id", $id],["email_verified_at",'<>',null]])->first();
+        $u = User::where([["id", $id], ["email_verified_at", '<>', null]])->first();
 
         if ($u) {
             event(new Registered($u));
@@ -90,23 +92,24 @@ class AbonnementController extends Controller
             return false;
         }
     }
-    public function note(){
+    public function note()
+    {
         //8.ZabjB4FDNL
         //8.rQGbxK1qnt
         $response_body = self::verifyStatus("8.rQGbxK1qnt");
-        $retour = abonnementUser::where("transaction_id","8.jr59UZaOps")->first();
-        $ab=abonnement::with("service")->where("id",$retour->abonnement_id)->first();
-         //dd($ab);
+        $retour = abonnementUser::where("transaction_id", "8.jr59UZaOps")->first();
+        $ab = abonnement::with("service")->where("id", $retour->abonnement_id)->first();
+        //dd($ab);
         if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
-            $data = $response_body;                
-           // $login = self::verifyLogin($request->transaction_id);
-           $message=["message"=>"Paiement fait avec succès","status"=>"Réussi"];  
-                return view('pages.notify', compact('data',"message","ab"));
+            $data = $response_body;
+            // $login = self::verifyLogin($request->transaction_id);
+            $message = ["message" => "Paiement fait avec succès", "status" => "Réussi"];
+            return view('pages.notify', compact('data', "message", "ab"));
         } else {
             $data = $response_body;
             //$login = self::verifyLogin($request->transaction_id);
-            $message=["message"=>"Paiement fait avec succès","status"=>"Réussi"];    
-            return view('pages.notify', compact('data',"message","ab"));
+            $message = ["message" => "Paiement fait avec succès", "status" => "Réussi"];
+            return view('pages.notify', compact('data', "message", "ab"));
         }
     }
     public function notify(Request $request)
@@ -117,9 +120,9 @@ class AbonnementController extends Controller
          * composition de la variable reponse, c'est une concatenation de montant+monaie+
          * signature+telephone+prefix du pay+la langue+la version+la configuration+l'action
          * * */
-        $reponse=$request->cpm_amount."/".$request->cpm_currency."/".$request->signature."/".$request->cel_phone_num."/".
-        $request->cpm_phone_prefixe."/".$request->cpm_language."/".$request->cpm_version."/".$request->cpm_payment_config."/".$request->cpm_page_action;
-        
+        $reponse = $request->cpm_amount . "/" . $request->cpm_currency . "/" . $request->signature . "/" . $request->cel_phone_num . "/" .
+            $request->cpm_phone_prefixe . "/" . $request->cpm_language . "/" . $request->cpm_version . "/" . $request->cpm_payment_config . "/" . $request->cpm_page_action;
+
         if ($retour) {
             $response_body = self::verifyStatus($request->cpm_trans_id);
             if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
@@ -129,7 +132,7 @@ class AbonnementController extends Controller
                 $retour->date_debut = $delait[0]->isoFormat("YYYY-MM-DD H:M:S");
                 $retour->date_fin = $delait[1]->isoFormat("YYYY-MM-DD H:M:S");
                 $retour->save();
-                
+
                 $paiement->updated_at = $request->cpm_trans_date;
                 $paiement->reponse = $reponse;
 
@@ -138,7 +141,13 @@ class AbonnementController extends Controller
                 $paiement->message = $response_body['message'];
                 $paiement->reference = $response_body['data']['status'];
                 $paiement->save();
-                $compte = self::activeCompte($request->cpm_trans_id);
+                // $compte = self::activeCompte($request->cpm_trans_id);
+
+                //ici je notifi le client par mail 
+                $user = User::find($retour->user_id);
+                Mail::to($user->email)->send(new notifyAbonnement($user, 'success', "Paiement abonnement réussi"));
+
+
                 return dd($response_body['data']['status']);
             } else {
                 $retour->etat =  $response_body['data']['status'];
@@ -153,6 +162,12 @@ class AbonnementController extends Controller
                 $paiement->reference = $response_body['data']['status'];
                 $paiement->save();
                 $data = $response_body;
+
+                //ici je notifi le client par mail 
+                $user = User::find($retour->user_id);
+                Mail::to($user->email)->send(new notifyAbonnement($user, 'echec', "Paiement abonnement échouer"));
+
+
                 return dd($response_body['data']['status']);
             }
         } else {
@@ -160,142 +175,143 @@ class AbonnementController extends Controller
         }
     }
 
-    public function message($body){
-        $code=$body["code"];
-        $reponse=array();
+    public function message($body)
+    {
+        $code = $body["code"];
+        $reponse = array();
         switch ($code) {
             case '201':
-                return $reponse=["message"=>"Paiement crée","status"=>"Créé"];
+                return $reponse = ["message" => "Paiement crée", "status" => "Créé"];
                 break;
             case '600':
-                return $reponse=["message"=>"Paiement échoué!","status"=>"échec"];
+                return $reponse = ["message" => "Paiement échoué!", "status" => "échec"];
                 break;
             case '602':
-                return $reponse=["message"=>"Solde insuffisant","status"=>"échec"];
+                return $reponse = ["message" => "Solde insuffisant", "status" => "échec"];
                 break;
             case '603':
-                return $reponse=["message"=>"Service indisponible","status"=>"échec"];
+                return $reponse = ["message" => "Service indisponible", "status" => "échec"];
                 break;
             case '604':
-                return $reponse=["message"=>"Erreur du code OTP","status"=>"échec"];
+                return $reponse = ["message" => "Erreur du code OTP", "status" => "échec"];
                 break;
             case '608':
-                return $reponse=["message"=>"Les champs minimum requis n'est pas envoyer","status"=>"échec"];
+                return $reponse = ["message" => "Les champs minimum requis n'est pas envoyer", "status" => "échec"];
                 break;
             case '606':
-                return $reponse=["message"=>"Erreur des configurations","status"=>"échec"];
+                return $reponse = ["message" => "Erreur des configurations", "status" => "échec"];
                 break;
             case '609':
-                return $reponse=["message"=>"Erreur d'authenfication","status"=>"échec"];
+                return $reponse = ["message" => "Erreur d'authenfication", "status" => "échec"];
                 break;
             case '610':
-                return $reponse=["message"=>"Erreur de méthode de paiement","status"=>"échec"];
+                return $reponse = ["message" => "Erreur de méthode de paiement", "status" => "échec"];
                 break;
             case '611':
-                return $reponse=["message"=>"Erreur des type de montant","status"=>"échec"];
+                return $reponse = ["message" => "Erreur des type de montant", "status" => "échec"];
                 break;
             case '612':
-                return $reponse=["message"=>"Monaie non valide","status"=>"échec"];
+                return $reponse = ["message" => "Monaie non valide", "status" => "échec"];
                 break;
             case '613':
-                return $reponse=["message"=>"Identifiant du site non valide","status"=>"échec"];
+                return $reponse = ["message" => "Identifiant du site non valide", "status" => "échec"];
                 break;
             case '614':
-                return $reponse=["message"=>"Format de date de transaction non valide","status"=>"échec"];
+                return $reponse = ["message" => "Format de date de transaction non valide", "status" => "échec"];
                 break;
             case '615':
-                return $reponse=["message"=>"Langue non valide","status"=>"échec"];
+                return $reponse = ["message" => "Langue non valide", "status" => "échec"];
                 break;
             case '616':
-                return $reponse=["message"=>"Page d'action non valide","status"=>"échec"];
+                return $reponse = ["message" => "Page d'action non valide", "status" => "échec"];
                 break;
             case '617':
-                return $reponse=["message"=>"Configuration de paiement non valide","status"=>"échec"];
+                return $reponse = ["message" => "Configuration de paiement non valide", "status" => "échec"];
                 break;
             case '618':
-                return $reponse=["message"=>"Version de API non valide","status"=>"échec"];
+                return $reponse = ["message" => "Version de API non valide", "status" => "échec"];
                 break;
             case '619':
-                return $reponse=["message"=>"La signature érronée","status"=>"échec"];
+                return $reponse = ["message" => "La signature érronée", "status" => "échec"];
                 break;
             case '620':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '621':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '622':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '623':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '624':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '625':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '626':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '627':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '628':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '635':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '636':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '637':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '641':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '642':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '662':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '663':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '664':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '804':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '807':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '808':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '809':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '810':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '811':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '812':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
             case '623':
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
-            
+
             default:
-                return $reponse=["message"=>"Paiement crée","status"=>"échec"];
+                return $reponse = ["message" => "Paiement crée", "status" => "échec"];
                 break;
         }
     }
@@ -303,29 +319,29 @@ class AbonnementController extends Controller
     {
         $retour = abonnementUser::where("transaction_id", $request->transaction_id)->first();
         $paiement = paiement::where("transaction_id", $request->transaction_id)->first();
-        $ab=abonnement::with("service")->where("id",$retour->abonnement_id)->first();
+        $ab = abonnement::with("service")->where("id", $retour->abonnement_id)->first();
         if ($retour) {
             $response_body = self::verifyStatus($request->transaction_id);
             // dd($response_body);
             if ((int)$response_body["code"] === 00 && $response_body["message"] == "SUCCES") {
-                $data = $response_body; 
-                $message=["message"=>"Paiement fait avec succès","status"=>"Réussi"];               
+                $data = $response_body;
+                $message = ["message" => "Paiement fait avec succès", "status" => "Réussi"];
                 $login = self::verifyLogin($request->transaction_id);
-                $message=["message"=>"Paiement fait avec succès","status"=>"Réussi"];  
-                return view('pages.notify', compact('data',"message","ab"));
+                $message = ["message" => "Paiement fait avec succès", "status" => "Réussi"];
+                return view('pages.notify', compact('data', "message", "ab"));
             } else {
                 $data = $response_body;
                 $login = self::verifyLogin($request->transaction_id);
-                $message=self::message($response_body);    
-                return view('pages.notify', compact('data',"message","ab"));
+                $message = self::message($response_body);
+                return view('pages.notify', compact('data', "message", "ab"));
             }
         } else {
 
             $response_body = self::verifyStatus($request);
             $data = $response_body;
             $etat = "Erreur d'enregistrement";
-            $message=self::message($response_body);     
-            return view('pages.notify', compact('data',"message","ab"));
+            $message = self::message($response_body);
+            return view('pages.notify', compact('data', "message", "ab"));
         }
     }
     /**
@@ -381,8 +397,8 @@ class AbonnementController extends Controller
     }
     public function initInfo($request, $transaction_id)
     {
-        $description=abonnement::find($request->abonnement_id);
-       // dd($description);
+        $description = abonnement::find($request->abonnement_id);
+        // dd($description);
         if ($request->channels == "MOBILE_MONEY") {
             $cinetpay_data =  [
                 "amount" => $request->prix,
@@ -390,7 +406,7 @@ class AbonnementController extends Controller
                 "apikey" => env("CINETPAY_APIKEY"),
                 "site_id" => env("CINETPAY_SERVICD_ID"),
                 "transaction_id" => $transaction_id,
-                "description" => "Achat abonnement ".$description->nom,
+                "description" => "Achat abonnement " . $description->nom,
                 "return_url" => env("RETURN_URL"),
                 "notify_url" => env("NOTIFY_URL"),
                 'channels' => $request["channels"],
@@ -403,18 +419,18 @@ class AbonnementController extends Controller
                 "apikey" => env("CINETPAY_APIKEY"),
                 "site_id" => env("CINETPAY_SERVICD_ID"),
                 "transaction_id" => $transaction_id,
-                "description" => "Achat abonnement ".$description->nom,
+                "description" => "Achat abonnement " . $description->nom,
                 "return_url" => env("RETURN_URL"),
                 "notify_url" => env("NOTIFY_URL"),
                 'channels' => $request["channels"],
-                'customer_name' => Auth::user()->name,
+                'customer_name' => isset($request->name) && $request->name != "" ? $request->name : Auth::user()->name,
                 'customer_city' => $request["customer_city"],
-                'customer_email' => Auth::user()->email,
-                'customer_surname' => Auth::user()->prenom,
+                'customer_email' => isset($request->email) && $request->email != "" ? $request->email : Auth::user()->email,
+                'customer_surname' => isset($request->prenom) && $request->prenom != "" ? $request->prenom : Auth::user()->prenom,
                 'customer_address' => $request["customer_address"],
                 'customer_country' => $request["customer_country"],
                 'customer_zip_code' => $request["customer_zip_code"],
-                'customer_phone_number' => Auth::user()->telephone,
+                'customer_phone_number' => isset($request->telephone) && $request->telephone != "" ? $request->telephone : Auth::user()->telephone,
                 'customer_state' => $request["customer_state"],
             ];
             return $cinetpay_data;

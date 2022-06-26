@@ -1,5 +1,6 @@
 <div class="col-12 form-group">
-	<select name="customer_country" class="select2 carte2"  data-error="Champ obligatoire" >
+	<select name="customer_country" class="select2 carte2"  data-error="Champ obligatoire" 
+	onchange="switch_state(this.value)">
 		<option value="" selected>Selectionnez votre pays </option>
 		<option value="AF">Afghanistan</option>
 		<option value="AX">Åland Islands</option>

@@ -186,17 +186,23 @@
                                    <div class="help-block with-errors"></div>
                                </div>
                                <div class="col-md-12 form-group">
-                                   <input type="text" placeholder="Votre Etat *" class="form-control carte2"
-                                       name="customer_state" id="customer_state"
-                                       value="{{ old('customer_state') }}">
-                                   <div class="help-block with-errors"></div>
-                               </div>
-                               <div class="col-md-12 form-group">
                                    <input type="text" placeholder="Code postal *"
                                        value="{{ old('customer_zip_code') }}" class="form-control carte2"
                                        name="customer_zip_code" id="customer_zip_code">
                                    <div class="help-block with-errors"></div>
                                </div>
+                               <div class="state" id="state" style="display: none">
+                          
+                            </div>
+                            @include("pages.etatUs")
+                            @include("pages.etatCa")
+                               {{-- <div class="col-md-12 form-group">
+                                   <input type="text" placeholder="Votre Etat *" class="form-control carte2"
+                                       name="customer_state" id="customer_state"
+                                       value="{{ old('customer_state') }}">
+                                   <div class="help-block with-errors"></div>
+                               </div> --}}
+                               
                                <div class="col-12 form-group">
                                    <textarea placeholder="Votre adresse" class="textarea form-control carte2" name="customer_address" id="customer_address"
                                        rows="5" cols="20">
@@ -233,6 +239,8 @@
         $(document).ready(function() {
             var moyen = document.querySelector('select.moyen').value;
             switch_modepaie(moyen);
+            var state = document.querySelector('select.carte2').value;
+            switch_state(state);
         });
 
         function viewFacture(val) {
@@ -258,6 +266,8 @@
 
                     var el = document.querySelectorAll('input.carte2');
                     document.querySelector('select.carte2').removeAttribute("required");
+                    document.querySelector('textarea.carte2').removeAttribute('required');
+
                     el.forEach(element => {
                         element.removeAttribute("required");
                     });
@@ -269,7 +279,7 @@
                         element.setAttribute('required', "true");
                     });
                     document.getElementById('carte').style.display = "block";
-                    // document.getElementById('carte').removeAttribute('hidden');
+                    document.querySelector('textarea.carte2').setAttribute('required', "true");
                     break;
                 case "":
                     document.getElementById('carte').style.display = "none";
@@ -280,6 +290,39 @@
                         element.removeAttribute("required");
                     });
 
+                    break;
+            }
+        }
+        function switch_state(val) {
+            switch (val) {
+                case "US":
+                    document.getElementById('state').style.display = "block";
+                    document.getElementById('us').style.display = "block";
+                    document.getElementById('ca').style.display = "none";
+
+                    document.querySelector('select.carteca').removeAttribute('required');
+                    document.querySelector('select.carteus').setAttribute('required', "true");
+
+                    break;
+                case "CA":
+                    document.getElementById('state').style.display = "block";
+
+                    document.querySelector('select.carteus').removeAttribute('required');
+                    document.querySelector('select.carteca').setAttribute('required', "true");
+
+                    document.getElementById('ca').style.display = "block";
+                    document.getElementById('us').style.display = "none";
+
+                    break;
+
+                default:
+                    document.getElementById('state').style.display = "none";
+                    document.getElementById('us').style.display = "none";
+                    document.getElementById('ca').style.display = "none";
+
+                    document.querySelector('select.carteus').removeAttribute('required');
+                    document.querySelector('select.carteca').removeAttribute('required');
+                    // document.querySelector('input.carte3').removeAttribute('required');
                     break;
             }
         }
