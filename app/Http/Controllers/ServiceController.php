@@ -61,7 +61,7 @@ class ServiceController extends Controller
         $data = "foo:*:1023:1000::/home/foo:/bin/sh";
         $y = $detail->reponse;
         //list($user, $pass, $uid, $gid, $gecos, $home) = ;
-        dd(explode("+", $y));
+        dd($y);
         return view("pages.detailhistorique", compact("detail"));
     }
 
