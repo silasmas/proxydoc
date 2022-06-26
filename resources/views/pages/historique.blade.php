@@ -73,7 +73,7 @@ faites glisser le tableau pour voir la suite
                                                 </label>
                                             </td>
                                             <td class="schedule-btn">
-                                                <a href="#" class="btn btn-primary">Detail</a>
+                                                <a href="{{ route('detailHistorique', ['id'=>$h->id]) }}" class="btn btn-primary">voir en detail</a>
                                             </td>
                                         </tr>                                            
                                         @empty

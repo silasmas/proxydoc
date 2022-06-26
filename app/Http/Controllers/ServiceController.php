@@ -47,6 +47,12 @@ class ServiceController extends Controller
         //  dd($historique);
         return view("pages.historique", compact("historique"));
     }
+    public function detailHistorique($id)
+    {
+        $detail = paiement::where("id", $id)->first();
+        dd(explode('+', $detail->reponse));
+        return view("pages.detailhistorique", compact("detail"));
+    }
 
     /**
      * Show the form for creating a new resource.

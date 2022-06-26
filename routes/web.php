@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profil', [ServiceController::class, 'profil'])->name('profil');
     Route::get('/historique', [ServiceController::class, 'historique'])->name('historique');
 
+    Route::get('/detailHistorique/{id}', [ServiceController::class, 'detailHistorique'])->name('detailHistorique');
     Route::get('/detailmonAbonnement/{id}', [ServiceController::class, 'show'])->name('detailmonAbonnement');
 
     Route::post('/editprofil', [ServiceController::class, 'editprofil'])->name('editprofil');
