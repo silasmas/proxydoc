@@ -49,8 +49,19 @@ class ServiceController extends Controller
     }
     public function detailHistorique($id)
     {
+        /**
+         * composition de la variable reponse, c'est une concatenation de montant+monaie+
+         * signature+telephone+prefix du pay+la langue+la version+la configuration+l'action
+         * * */
         $detail = paiement::where("id", $id)->first();
-        dd(explode('+', $detail->reponse));
+        // list(
+        //     $montant, $monaie, $signature, $telephone, $prefix,
+        //     $langue, $version, $configuration, $action
+        // ) = explode('+', $detail->reponse);
+        $data = "foo:*:1023:1000::/home/foo:/bin/sh";
+        $y = $detail->reponse;
+        //list($user, $pass, $uid, $gid, $gecos, $home) = ;
+        dd(explode("+", $y));
         return view("pages.detailhistorique", compact("detail"));
     }
 
