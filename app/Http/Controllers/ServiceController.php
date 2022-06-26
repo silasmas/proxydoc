@@ -54,14 +54,11 @@ class ServiceController extends Controller
          * signature+telephone+prefix du pay+la langue+la version+la configuration+l'action
          * * */
         $detail = paiement::where("id", $id)->first();
-        // list(
-        //     $montant, $monaie, $signature, $telephone, $prefix,
-        //     $langue, $version, $configuration, $action
-        // ) = explode('+', $detail->reponse);
-        $data = "foo:*:1023:1000::/home/foo:/bin/sh";
-        $y = $detail->reponse;
-        //list($user, $pass, $uid, $gid, $gecos, $home) = ;
-        dd($detail->reponse);
+        list(
+            $montant, $monaie, $signature, $telephone, $prefix,
+            $langue, $version, $configuration, $action
+        ) = explode('/', $detail->reponse);
+        dd($montant);
         return view("pages.detailhistorique", compact("detail"));
     }
 
