@@ -38,7 +38,7 @@
                             @endforelse
                             
                         </ul>
-                        <a href="{{ route('createAbonnement',['id'=>$a->id])}}" class="item-btn">Voir en detail</a>
+                        <a href="{{ route('detailmonAbonnement',['id'=>$a->id])}}" class="item-btn">Voir en detail</a>
                     </div>
                 </div>
             </div>

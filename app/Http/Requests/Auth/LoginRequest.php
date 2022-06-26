@@ -55,7 +55,7 @@ class LoginRequest extends FormRequest
         //     ]);
         // }
 
-        $user = User::with('abonnement','abonnement.service')->where('email', $this->email)
+        $user = User::with('abonnement', 'abonnement.service', 'abonnement.service.acte')->where('email', $this->email)
             ->orWhere('telephone', $this->email)
             ->first();
 
