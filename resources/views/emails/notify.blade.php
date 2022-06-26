@@ -8,6 +8,7 @@ Félicitation, le paiement de votre abonnement a été fait avec succès.
 Connectez-vous pour en profiter 
 @else
 Echéc de paiement pour l'abonnement.
+{{ $type }}
 @endif
 @endcomponent
 

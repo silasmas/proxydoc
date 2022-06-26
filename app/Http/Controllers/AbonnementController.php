@@ -162,10 +162,10 @@ class AbonnementController extends Controller
                 $paiement->reference = $response_body['data']['status'];
                 $paiement->save();
                 $data = $response_body;
-
+                $message = self::message($response_body);
                 //ici je notifi le client par mail 
                 $user = User::find($retour->user_id);
-                Mail::to($user->email)->send(new notifyAbonnement($user, 'echec', "Paiement abonnement échouer"));
+                Mail::to($user->email)->send(new notifyAbonnement($user, $message, "Paiement abonnement échouer"));
 
 
                 return dd($response_body['data']['status']);
