@@ -341,7 +341,7 @@ class AbonnementController extends Controller
 
                 //ici je notifi le client par mail 
                 $user = User::find($retour->user_id);
-                Mail::to($user->email)->send(new notifyAbonnement($user, $message, "Paiement abonnement échouer"));
+                Mail::to($user->email)->send(new notifyAbonnement($user, $message, "Paiement abonnement échouer retour"));
 
                 return view('pages.notify', compact('data', "message", "ab"));
             }
@@ -354,7 +354,7 @@ class AbonnementController extends Controller
 
             //ici je notifi le client par mail 
             $user = User::find($retour->user_id);
-            Mail::to($user->email)->send(new notifyAbonnement($user, $message, "Paiement abonnement échouer"));
+            Mail::to($user->email)->send(new notifyAbonnement($user, $message, "Paiement abonnement échouer retour"));
 
             return view('pages.notify', compact('data', "message", "ab"));
         }
