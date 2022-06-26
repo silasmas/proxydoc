@@ -330,12 +330,20 @@ class AbonnementController extends Controller
                 $login = self::verifyLogin($request->transaction_id);
                 $message = ["message" => "Paiement fait avec succès", "status" => "Réussi"];
 
+                //ici je notifi le client par mail 
+                $user = User::find($retour->user_id);
+                Mail::to($user->email)->send(new notifyAbonnement($user, 'success', "Paiement abonnement réussi"));
 
                 return view('pages.notify', compact('data', "message", "ab"));
             } else {
                 $data = $response_body;
                 $login = self::verifyLogin($request->transaction_id);
                 $message = self::message($response_body);
+
+                //ici je notifi le client par mail 
+                $msg = $message['message'];
+                $user = User::find($retour->user_id);
+                Mail::to($user->email)->send(new notifyAbonnement($user, $msg, "Paiement abonnement échouer retour"));
 
                 return view('pages.notify', compact('data', "message", "ab"));
             }
