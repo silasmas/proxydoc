@@ -21,7 +21,7 @@
                             <p class="slider-paragraph padding-right">Mimply dummy text of the printing typesetting
                                 ipsum dolor onsecte dipiscing.</p>
                             <div class="slider-btn-area">
-                                <a href="#" class="item-btn">Read More<i class="fas fa-chevron-right"></i></a>
+                                <a href="{{ route('abonnement') }}" class="item-btn">S'abonner<i class="fas fa-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                                 ipsum dolor onsecte
                                 dipiscing.</p>
                             <div class="slider-btn-area">
-                                <a href="#" class="item-btn">Read More<i class="fas fa-chevron-right"></i></a>
+                                <a href="{{ route('abonnement') }}" class="item-btn">S'abonner<i class="fas fa-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                                 ipsum dolor onsecte
                                 dipiscing.</p>
                             <div class="slider-btn-area">
-                                <a href="#" class="item-btn">Read More<i class="fas fa-chevron-right"></i></a>
+                                <a href="{{ route('abonnement') }}" class="item-btn">S'abonner<i class="fas fa-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -66,14 +66,15 @@
             <div class="row">
                 <div class="about-box-layout1 order-xl-2 col-xl-5 col-12">
                     <div class="item-content">
-                        <h2 class="item-title">Bienvenue chez {{ config('app.name') }} . Central Hospital</h2>
-                        <div class="sub-title">Hospital imply dummy text of the printing and type setng industry
-                            been
-                            the industry.
+                        <h2 class="item-title">Bienvenue chez {{ config('app.name') }}.</h2>
+                        <div class="sub-title">
+                            Connecter pour une meilleure santé 
                         </div>
-                        <p>Mtandard dummy texr since when an unknown printer took a galley.MediPoint Lorem ipsum
-                            dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam.'s standard dummy texr
-                            since when an unknown printer took a galley consetetur.</p>
+                        <p>
+                            L’entreprise ProxyDoc s’assigne comme objectif de rendre 
+                            les services médicaux à la population au travers des moyens 
+                            de nouvelles technologies de l’information et de communication (NTIC).
+                        </p>
                         <img src="{{ asset('assets/img/slider/sign1.png') }}" alt="sign" class="img-fluid">
                     </div>
                 </div>
@@ -101,7 +102,7 @@
     <!-- Fin section service -->
 
     <!-- Featured Area Start Here -->
-    <section class="features-wrap-layout1">
+    {{-- <section class="features-wrap-layout1">
         <div class="features-box-layout1 d-lg-flex bg-primary100">
             <div class="item-inner-wrapper">
                 <div class="item-content d-flex align-items-center">
@@ -178,7 +179,7 @@
                 <img src="{{ asset('assets/img/slider/team.jpg') }}" class="img-responsive" alt="figure">
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Featured Area End Here -->
     <!-- Brand Area Start Here -->
     <section class="brand-wrap-layout1 bg-primary100">
@@ -368,7 +369,7 @@
     </section>
     <!-- Team Area End Here -->
     <!-- Schedule Area Start Here -->
-    <section class="class-schedule1">
+    {{-- <section class="class-schedule1">
         <div class="container">
             <div class="text-center section-heading heading-dark heading-layout1">
                 <h2>Specialist Doctors</h2>
@@ -953,7 +954,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Schedule Area End Here -->
     <!-- Banner Area Start Here -->
     <section class="banner-wrap-layout1 parallaxie" data-bg-image="{{ asset('assets/img/slider/slide4-3.jpg') }}">
@@ -977,7 +978,7 @@
     <!-- Banner End Here -->
     @include('parties.abonnements')
     <!-- Call to Action Area Start Here -->
-    <section class="call-to-action-wrap-layout4">
+    {{-- <section class="call-to-action-wrap-layout4">
         <div class="item-img">
             <img src="{{ asset('assets/img/slider/figure7.png') }}" alt="figure" class="img-fluid">
         </div>
@@ -998,7 +999,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Call to Action End Here -->
 @endsection
 

@@ -1,6 +1,6 @@
  <!-- Footer Area Start Here -->
  <footer>
-    <section class="footer-top-wrap">
+    {{-- <section class="footer-top-wrap">
         <div class="container">
             <div class="row">
                 <div class="single-item col-lg-3 col-md-6 col-12">
@@ -75,8 +75,8 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="footer-center-wrap">
+    </section> --}}
+    {{-- <section class="footer-center-wrap">
         <div class="container">
             <div class="row no-gutters">
                 <div class="col-lg-4 col-12">
@@ -114,9 +114,9 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <section class="footer-bottom-wrap">
-        <div class="copyright">Copyright @ 2022 Proxydoc. Tout droits réservé.</div>
+        <div class="copyright">Copyright @2022 Proxydoc. Tout droits réservé.</div>
     </section>
 </footer>
 <!-- Footer Area End Here -->
