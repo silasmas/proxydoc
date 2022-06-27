@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use App\Http\Requests\StoreserviceRequest;
 use App\Http\Requests\UpdateserviceRequest;
+use App\Models\abonnementUser;
 use App\Models\paiement;
 use Illuminate\Validation\Rules;
 
@@ -54,11 +55,13 @@ class ServiceController extends Controller
          * signature+telephone+prefix du pay+la langue+la version+la configuration+l'action
          * * */
         $detail = paiement::where("id", $id)->first();
-        list(
+        $user = abonnementUser::with("user")->where("transaction_id", "8.WSGv2a1fnZ")->first();
+        // dd($user);
+        $list = list(
             $montant, $monaie, $signature, $telephone, $prefix,
             $langue, $version, $configuration, $action
         ) = explode('/', $detail->reponse);
-        dd($montant);
+        dd($list);
         return view("pages.detailhistorique", compact("detail"));
     }
 
