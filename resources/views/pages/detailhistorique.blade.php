@@ -15,26 +15,26 @@
             <div class="text-center section-heading heading-dark heading-layout3">
                 <h2>Detail de la transaction</h2>
                 <p>Trouvez ici le detail chaque service inclut dans cet abonnement
-                     et les avantages</p>
+                    et les avantages</p>
             </div>
             <div class="single-departments-box-layout1">
                 <div class="item-content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="item-cost">
-                        <h3 class="item-title title-bar-primary7">Our Pricing Plan</h3>
-                        <ul>
-                            <li>Dental Implant<span>$45.00</span></li>                                
-                            @forelse ($detail->reponse as $d)
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="item-cost">
+                                <h3 class="item-title title-bar-primary7">Our Pricing Plan</h3>
+                                <ul>
+                                    <li><span>{{ $detail->montant }}</span></li>
+                                    {{-- @forelse ($detail->reponse as $d)
                             @empty
                                 
-                            @endforelse
-                        </ul>
+                            @endforelse --}}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
         </div>
     </section>
     <!-- Special Offer End Here -->
