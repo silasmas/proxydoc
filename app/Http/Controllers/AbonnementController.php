@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\service;
 use App\Models\paiement;
 use App\Models\abonnement;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
+use App\Mail\notifyAbonnement;
 use App\Models\abonnementUser;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UpdateabonnementRequest;
-use App\Mail\notifyAbonnement;
 
 class AbonnementController extends Controller
 {
@@ -35,7 +36,9 @@ class AbonnementController extends Controller
     }
     public function detail()
     {
-        return view('pages.detailAbonnement');
+        $services = service::with("acte")->get();
+        //dd($services);
+        return view('pages.detailAbonnement', compact('services'));
     }
     public function docteur()
     {

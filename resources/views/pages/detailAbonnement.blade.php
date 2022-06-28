@@ -24,207 +24,62 @@
                     <div class="widget widget-department-info">
                         <h3 class="section-title title-bar-primary">Liste des services</h3>
                         <ul class="nav nav-tabs tab-nav-list">
-                            <li class="nav-item">
-                                <a class="active" href="#department1" data-toggle="tab"
-                                    aria-expanded="false">ProxyChat</a>
+                            @forelse ($services as $s)
+                                <li class="nav-item">
+                                <a class="{{ $loop->first?'active':"" }}" href="#{{ "department".$s->id }}" data-toggle="tab"
+                                    aria-expanded="false">{{ $s->nom }}</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#department2" data-toggle="tab" aria-expanded="false">ProxySchem</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#department3" data-toggle="tab" aria-expanded="false">ProxyFamily</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#department4" data-toggle="tab" aria-expanded="false">ProxyGency</a>
-                            </li>
+                            @empty                                
+                            @endforelse
 
                         </ul>
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-8 col-12 no-equal-item">
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade active show" id="department1">
+                        @forelse ($services as $s)
+                            <div role="tabpanel" class="tab-pane fade {{ $loop->first?'active show':"" }} " id="{{ "department".$s->id }}">
                             <div class="single-departments-box-layout1">
                                 <div class="single-departments-img">
                                     {{-- <img alt="single" src="{{ asset('assets/img/slider/department28.jpg') }}"> --}}
                                 </div>
                                 <div class="item-content">
                                     <div class="item-content-wrap">
-                                        <h3 class="item-title title-bar-primary5">ProxyChat</h3>
-                                        <span class="sub-title">Dorem ipsum dolor sit amet, consectetuer adipiscing
-                                            elit, sed diam nonummy nibh erty cidunt utter laoreet dolore magna
-                                            aliquam erat volutpanostrud exercier.</span>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc iquam class bibendum non mattis
-                                            fusceut perspiciatis undeuisque. </p>
-                                        <h3 class="item-title">Advantage:</h3>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc.</p>
+                                        <h3 class="item-title title-bar-primary5">{{ $s->nom }}</h3>
+                                        <span class="sub-title">
+
+                                        </span>
+                                        <p>
+                                            {{ $s->description }}
+                                         </p>
+                                        <h3 class="item-title">Advantages:</h3>
+                                        {{-- <p>
+                                        
+                                        </p> --}}
                                         <ul class="department-info">
-                                            <li>Keep Patients First Nulla lobortis.</li>
-                                            <li>Keep Everyone Safe.</li>
-                                            <li>Work Together Quisque pretium quam.</li>
-                                            <li>Curabitur semper enim id accumsan.</li>
+                                            @forelse ($s->acte as $se)
+                                            <li>{{ $se->nom." :" }} <br>
+                                            <small class="mb-4" style="margin-bottom: 10px">
+                                            {{ $se->description }}    
+                                            </small> </li>                                              
+                                            @empty
+                                                
+                                            @endforelse
                                         </ul>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc.Aliquam class bibendum mattis
-                                            fusceut persecenas. Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi
-                                            mauris et adipisc.</p>
-                                    </div>
+                                        <p>
 
-
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="department2">
-                            <div class="single-departments-box-layout1">
-                                <div class="single-departments-img">
-                                    {{-- <img alt="single" src="img/department/department22.jpg"> --}}
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-content-wrap">
-                                        <h3 class="item-title title-bar-primary5">ProxySchem</h3>
-                                        <span class="sub-title">Dorem ipsum dolor sit amet, consectetuer adipiscing
-                                            elit, sed diam nonummy nibh
-                                            erty cidunt utter laoreet dolore magna aliquam erat volutpanostrud
-                                            exercier.</span>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc iquam class bibendum non mattis
-                                            fusceut perspiciatis undeuisque. </p>
-                                        <h3 class="item-title">Advantage:</h3>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc.
                                         </p>
-                                        <ul class="department-info">
-                                            <li>Keep Patients First Nulla lobortis.</li>
-                                            <li>Keep Everyone Safe.</li>
-                                            <li>Work Together Quisque pretium quam.</li>
-                                            <li>Curabitur semper enim id accumsan.</li>
-                                        </ul>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc.Aliquam class bibendum mattis
-                                            fusceut persecenas. Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi
-                                            mauris et adipisc.</p>
                                     </div>
+
 
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="department3">
-                            <div class="single-departments-box-layout1">
-                                <div class="single-departments-img">
-                                    {{-- <img alt="single" src="img/department/department23.jpg"> --}}
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-content-wrap">
-                                        <h3 class="item-title title-bar-primary5">ProxyFamily</h3>
-                                        <span class="sub-title">Dorem ipsum dolor sit amet, consectetuer adipiscing
-                                            elit, sed diam nonummy nibh erty cidunt utter laoreet dolore magna
-                                            aliquam erat volutpanostrud exercier.</span>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc iquam class bibendum non mattis
-                                            fusceut perspiciatis undeuisque. </p>
-                                        <h3 class="item-title">Advantage:</h3>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc.
-                                        </p>
-                                        <ul class="department-info">
-                                            <li>Keep Patients First Nulla lobortis.</li>
-                                            <li>Keep Everyone Safe.</li>
-                                            <li>Work Together Quisque pretium quam.</li>
-                                            <li>Curabitur semper enim id accumsan.</li>
-                                        </ul>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc.Aliquam class bibendum mattis
-                                            fusceut persecenas. Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi
-                                            mauris et adipisc.</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="department4">
-                            <div class="single-departments-box-layout1">
-                                <div class="single-departments-img">
-                                    {{-- <img alt="single" src="img/department/department24.jpg"> --}}
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-content-wrap">
-                                        <h3 class="item-title title-bar-primary5">ProxyGency</h3>
-                                        <span class="sub-title">Dorem ipsum dolor sit amet, consectetuer adipiscing
-                                            elit, sed diam nonummy nibh
-                                            erty cidunt utter laoreet dolore magna aliquam erat volutpanostrud
-                                            exercier.</span>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc iquam class bibendum non mattis
-                                            fusceut perspiciatis undeuisque. </p>
-                                        <h3 class="item-title">Advantage:</h3>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc.
-                                        </p>
-                                        <ul class="department-info">
-                                            <li>Keep Patients First Nulla lobortis.</li>
-                                            <li>Keep Everyone Safe.</li>
-                                            <li>Work Together Quisque pretium quam.</li>
-                                            <li>Curabitur semper enim id accumsan.</li>
-                                        </ul>
-                                        <p>Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipisc
-                                            iquam class bibendum non mattis fusceut perspiciatis undeuisque.
-                                            Maecenas. Eros mus. Hymenaeos eros. Nisi mauris et adipiscing. Aliquam
-                                            class
-                                            bibendum mattis fusceut persecenas. Quisque. Maecenas. Eros mus.
-                                            Hymenaeos eros. Nisi mauris et adipisc.Aliquam class bibendum mattis
-                                            fusceut persecenas. Quisque. Maecenas. Eros mus. Hymenaeos eros. Nisi
-                                            mauris et adipisc.</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        @empty
+                            
+                        @endforelse
+                        
+                        
                     </div>
                 </div>
                 {{-- <div class="sidebar-widget-area sidebar-break-md col-xl-3 col-lg-4 col-12 no-equal-item">
