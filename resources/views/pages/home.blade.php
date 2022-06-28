@@ -6,22 +6,42 @@
 
 @section('content')
     <!-- Slider Area Start Here -->
-    <div class="slider-area slider-layout1 bg-light-primary slider-top-margin">
+    <div class="slider-area slider-layout2 bg-light-primary100 slider-top-margin2">
         <div class="bend niceties preview-1">
             <div id="ensign-nivoslider-1" class="slides">
                 <img src="{{ asset('assets/img/slider/slide1-1.jpg') }}" alt="slider" title="#slider-direction-1" />
                 <img src="{{ asset('assets/img/slider/slide1-2.jpg') }}" alt="slider" title="#slider-direction-2" />
                 <img src="{{ asset('assets/img/slider/slide1-3.jpg') }}" alt="slider" title="#slider-direction-3" />
             </div>
+            {{-- <div id="slider-direction-1" class="t-cn slider-direction">
+                <div class="slider-content s-tb slide-1">
+                    <div class="container">
+                        <div class="text-box">
+                            <div class="slider-big-text">We are providing total<span> healthcare solutions.</span></div>
+                            <p class="slider-paragraph">Mimply dummy text of the printing and type settin age
+                                ipsum dolor sit amet, consecte tur adipiscing pitaeir ding total healthcare
+                                solutions.
+                            </p>
+                            <div class="slider-btn-area">
+                                <a href="#" class="item-btn">READ MORE<i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
             <div id="slider-direction-1" class="t-cn slider-direction">
                 <div class="slider-content s-tb slide-1">
                     <div class="text-left title-container s-tb-c">
                         <div class="container">
-                            <div class="slider-big-text padding-right">We Take Care Of Your Healthy Health</div>
-                            <p class="slider-paragraph padding-right">Mimply dummy text of the printing typesetting
-                                ipsum dolor onsecte dipiscing.</p>
-                            <div class="slider-btn-area">
-                                <a href="{{ route('abonnement') }}" class="item-btn">S'abonner<i class="fas fa-chevron-right"></i></a>
+                            <div class="text-box">
+                                <div class="slider-big-text">We are providing total<span> healthcare solutions.</span></div>
+                                <p class="slider-paragraph">Mimply dummy text of the printing and type settin age
+                                    ipsum dolor sit amet, consecte tur adipiscing pitaeir ding total healthcare
+                                    solutions.
+                                </p>
+                                <div class="slider-btn-area">
+                                    <a href="#" class="item-btn">READ MORE<i class="fas fa-chevron-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -31,12 +51,15 @@
                 <div class="slider-content s-tb slide-2">
                     <div class="text-left title-container s-tb-c">
                         <div class="container">
-                            <div class="slider-big-text padding-right">We Take Care Of Your Healthy Health</div>
-                            <p class="slider-paragraph padding-right">Mimply dummy text of the printing typesetting
-                                ipsum dolor onsecte
-                                dipiscing.</p>
-                            <div class="slider-btn-area">
-                                <a href="{{ route('abonnement') }}" class="item-btn">S'abonner<i class="fas fa-chevron-right"></i></a>
+                            <div class="text-box">
+                                <div class="slider-big-text">We are providing total<span> healthcare solutions.</span></div>
+                                <p class="slider-paragraph">Mimply dummy text of the printing and type settin age
+                                    ipsum dolor sit amet, consecte tur adipiscing pitaeir ding total healthcare
+                                    solutions.
+                                </p>
+                                <div class="slider-btn-area">
+                                    <a href="#" class="item-btn">READ MORE<i class="fas fa-chevron-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,12 +69,15 @@
                 <div class="slider-content s-tb slide-3">
                     <div class="text-left title-container s-tb-c">
                         <div class="container">
-                            <div class="slider-big-text padding-right">We Take Care Of Your Healthy Health</div>
-                            <p class="slider-paragraph padding-right">Mimply dummy text of the printing typesetting
-                                ipsum dolor onsecte
-                                dipiscing.</p>
-                            <div class="slider-btn-area">
-                                <a href="{{ route('abonnement') }}" class="item-btn">S'abonner<i class="fas fa-chevron-right"></i></a>
+                            <div class="text-box">
+                                <div class="slider-big-text">We are providing total<span> healthcare solutions.</span></div>
+                                <p class="slider-paragraph">Mimply dummy text of the printing and type settin age
+                                    ipsum dolor sit amet, consecte tur adipiscing pitaeir ding total healthcare
+                                    solutions.
+                                </p>
+                                <div class="slider-btn-area">
+                                    <a href="#" class="item-btn">READ MORE<i class="fas fa-chevron-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -60,8 +86,52 @@
         </div>
     </div>
     <!-- Slider Area End Here -->
+    <section class="call-to-action-wrap-layout3">
+        <div class="container">
+            <div class="row">
+                @forelse ($abonnement as $ab)
+                @foreach ($ab as $a)
+                <div class="col-lg-3 col-12">
+                    <div class="call-to-action-box-layout3">
+                        <div class="single-item">
+                            <a href="{{ route('createAbonnement',['id'=>$a->id])}}">
+                                {{ $a->monaie=="USD"?"$":"FC" }}{{  $a->prix }}
+                                {{ $a->nom }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                @empty
+                    
+                @endforelse
+                {{-- <div class="col-lg-3 col-12">
+                    <div class="call-to-action-box-layout3">
+                        <div class="single-item">
+                            <a href="appointment.html">Find Locations</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-12">
+                    <div class="call-to-action-box-layout3">
+                        <div class="single-item">
+                            <a href="appointment.html"> Request Appoinment</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-12">
+                    <div class="call-to-action-box-layout3">
+                        <div class="single-item">
+                            <a href="appointment.html"> Request Appoinment</a>
+                        </div>
+                    </div>
+                </div> --}}
+            </div>
+        </div>
+    </section>
+
     <!-- About Area Start Here -->
-    <section class="about-wrap-layout1" data-bg-image="{{ asset('assets/img/slider/figure7.jpg') }}">
+    {{-- <section class="about-wrap-layout1" data-bg-image="{{ asset('assets/img/slider/figure7.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="about-box-layout1 order-xl-2 col-xl-5 col-12">
@@ -95,8 +165,37 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- About Area End Here -->
+
+    <section class="about-wrap-layout2">
+        <div class="container">
+            <div class="row">
+                <div class="about-box-layout6 col-lg-6">
+                    <h1 class="item-title">Bienvenue chez
+                        <span>{{ config('app.name') }}</span>.</h1>
+                    <div class="sub-title">
+                        Connecter pour une meilleure santé 
+                    </div>
+                        <p>
+                            L’entreprise ProxyDoc s’assigne comme objectif de rendre 
+                            les services médicaux à la population au travers des moyens 
+                            de nouvelles technologies de l’information et de communication (NTIC).
+                        </p>
+                    {{-- <img src="img/about/sign1.png" alt="sign" class="img-fluid"> --}}
+                </div>
+                <div class="about-box-layout7 col-lg-6">
+                    <div class="item-video">
+                        <img src="{{ asset('assets/img/about3.png') }}" alt="about">
+                        <a class="play-btn popup-youtube" href="http://www.youtube.com/watch?v=1iIZeIy7TqM">
+                            <i class="flaticon-play-button"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- debut Section des services -->
     @include('parties.service')
     <!-- Fin section service -->

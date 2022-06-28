@@ -56,7 +56,7 @@
                </div>
            </div>
        </div>
-       <div class="header-menu-area header-menu-layout1">
+       <div class="header-menu-area header-menu-layout4">
            <div class="container">
                <div class="row no-gutters d-flex align-items-center">
                    <div class="col-lg-1 col-md-1 logo-area-layout1">
@@ -81,9 +81,7 @@
                                    <li>
                                        <a href="{{ route('docteur') }}">Nos docteurs</a>
                                    </li>
-                                   {{-- <li>
-                                       <a href="{{ route('contact') }}">Contact</a>
-                                   </li> --}}
+                                 
                                    @guest
                                        <li class="hide-on-desktop-menu">
                                            <a href="{{ route('login') }}"
@@ -97,7 +95,7 @@
                                    </li>
                                  
                                         @auth
-                                            <li>
+                                            <li class="hide-on-desktop-menu">
                                                 <a href="#">Mon compte</a>
                                                 <ul class="dropdown-menu-col-1">
                                                     <li>
@@ -127,20 +125,10 @@
                            </nav>
                        </div>
                    </div>
-                   <div class="col-lg-5 col-md-5    ">
-                       <div class="header-action-items-layout1">
+                   <div class="col-lg-5 col-md-5">
+                       <div class="header-action-items-layout1 d-flex align-items-center justify-content-end">
                            <ul>
-                               @auth                                   
-                               <li class="d-none d-xl-block">
-                                   <form id="top-search-form" class="header-search-dark">
-                                       <input type="text" class="search-input" placeholder="cherchez un service par son nom" required="">
-                                       <button class="search-button">
-                                           <i class="flaticon-search"></i>
-                                       </button>
-                                   </form>
-                               </li> 
-                               @endauth
-                               @guest
+                            @guest
                                    <li>
                                        <a href="{{ route('login') }}" class="action-items-primary-btn">Connéxion<i
                                                class="fas fa-chevron-right"></i></a>
@@ -151,7 +139,77 @@
                                    <a href="{{ route('abonnement') }}" class="action-items-primary-btn">S'abonner<i
                                            class="fas fa-chevron-right"></i></a>
                                </li>
+                            <li class="cart-area-dark">
+                                <a class="cart-trigger-icon ml-5" href="#">
+                                    <i class="flaticon-shopping-cart"></i>
+                                    <span>2</span>
+                                </a>
+                                <div class="cart-items">
+                                    <div class="cart-item">
+                                        <div class="cart-img">
+                                            <a href="#">
+                                                <img src="img/shop/cart1.png" alt="product" class="img-fluid">
+                                            </a>
+                                        </div>
+                                        <div class="cart-title">
+                                            <a href="#">Pressure</a>
+                                            <span>Code: STPT601</span>
+                                        </div>
+                                        <div class="cart-quantity">X 1</div>
+                                        <div class="cart-price">$249</div>
+                                        <div class="cart-trash">
+                                            <a href="#">
+                                                <i class="far fa-trash-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="cart-item">
+                                        <div class="cart-btn">
+                                            <a href="#" class="item-btn">Voir le panier</a>
+                                            <a href="#" class="item-btn">La caisse</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="avatar-user ml-4">
+                                    <img src="{{ asset('assets/img/slider/profil1.jpg') }}" alt="">
+                                    <ul class="dropdown-menu-col-1">
+                                        <li>
+                                            <a href="{{ route('mesAbonnements') }}">Mes abonnements</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('profil') }}">Mon profil</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('historique') }}">Historique d'achats</a>
+                                        </li>
+                                        <li>
+                                            <a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                                Déconnexion
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                               {{-- @auth                                   
+                               <li class="d-none d-xl-block">
+                                   <form id="top-search-form" class="header-search-dark">
+                                       <input type="text" class="search-input" placeholder="cherchez un service par son nom" required="">
+                                       <button class="search-button">
+                                           <i class="flaticon-search"></i>
+                                       </button>
+                                   </form>
+                               </li> 
+                               @endauth --}}
+                               
                            </ul>
+                           
                        </div>
                    </div>
                </div>
