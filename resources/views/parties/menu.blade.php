@@ -148,7 +148,7 @@
                                     <div class="cart-item">
                                         <div class="cart-img">
                                             <a href="#">
-                                                <img src="img/shop/cart1.png" alt="product" class="img-fluid">
+                                                <img src="" alt="product" class="img-fluid">
                                             </a>
                                         </div>
                                         <div class="cart-title">
