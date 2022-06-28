@@ -171,6 +171,7 @@
                                     </div>
                                 </div>
                             </li>
+                            @auth
                             <li>
                                 <div class="avatar-user ml-4">
                                     <img src="{{ asset('assets/img/slider/profil1.jpg') }}" alt="">
@@ -197,6 +198,7 @@
                                     </ul>
                                 </div>
                             </li>
+                            @endauth
                                {{-- @auth                                   
                                <li class="d-none d-xl-block">
                                    <form id="top-search-form" class="header-search-dark">
